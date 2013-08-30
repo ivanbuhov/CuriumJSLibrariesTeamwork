@@ -38,12 +38,122 @@ namespace BetMania.Services.Controllers
             this.random = new Random();
         }
 
+        [HttpPost]
+        [ActionName("getusers")]
+        public HttpResponseMessage GetUsers([ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        {
+            this.ValidateSessionKey(sessionKey);
+
+            var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
+
+            if (user == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+            }
+
+            if (user.IsAdmin)
+            {
+                HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+                {
+                    var allUsers = this.db.Users;
+                    return Request.CreateResponse(HttpStatusCode.OK, allUsers);
+                });
+
+                return response;
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+        }
+
+        [HttpPost]
+        [ActionName("putuser")]
+        public HttpResponseMessage PutUser(User modifiedUser, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        {
+            this.ValidateSessionKey(sessionKey);
+
+            var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
+
+            if (user == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+            }
+
+            if (user.IsAdmin)
+            {
+                int id = user.Id;
+                HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+                {
+                    var userToModify = this.db.Users.FirstOrDefault(x => x.Id == id);
+                    userToModify = new User()
+                    {
+                        Id = modifiedUser.Id,
+                        AuthCode = modifiedUser.AuthCode,
+                        Avatar = modifiedUser.Avatar,
+                        Balance = modifiedUser.Balance,
+                        IsAdmin = modifiedUser.IsAdmin,
+                        Nickname = modifiedUser.Nickname,
+                        SessionKey = modifiedUser.SessionKey,
+                        Username = modifiedUser.Username
+                    };
+
+                    db.SaveChanges();
+
+                    return Request.CreateResponse(HttpStatusCode.NoContent);
+                });
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Modify failed!");
+        }
+
+        [HttpPost]
+        [ActionName("deleteuser")]
+        public HttpResponseMessage DeleteUser(int idUserToDelete, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        {
+            this.ValidateSessionKey(sessionKey);
+
+            var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
+
+            if (user == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+            }
+
+            if (user.IsAdmin)
+            {
+                HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+                {
+                    var userToDelete = this.db.Users.FirstOrDefault(x => x.Id == idUserToDelete);
+                    if (userToDelete != null)
+                    {
+                        this.db.Users.Remove(userToDelete);
+                    }
+
+                    db.SaveChanges();
+
+                    return Request.CreateResponse(HttpStatusCode.OK, userToDelete);
+                });
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden);
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Delete failed!");
+        }
+
         // POST api/user/register
         [HttpPost]
         [ActionName("register")]
         public HttpResponseMessage Register(RegisterUserDTO userModel)
         {
-            HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() => {
+            HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+            {
                 // Validation
                 this.ValidateUsername(userModel.Username);
                 this.ValidateNickname(userModel.Nickname);
@@ -109,7 +219,7 @@ namespace BetMania.Services.Controllers
                 {
                     user.SessionKey = null;
                     this.db.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK);
+                    return Request.CreateResponse(HttpStatusCode.NoContent);
                 }
                 else
                 {
@@ -123,7 +233,7 @@ namespace BetMania.Services.Controllers
         // PUT api/user/addmoney
         [HttpPut]
         [ActionName("addmoney")]
-        public HttpResponseMessage AddMoney( int amount, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        public HttpResponseMessage AddMoney(int amount, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
             HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
             {
@@ -164,8 +274,8 @@ namespace BetMania.Services.Controllers
             if (nickname.Length < UserController.MinUsernameLength || nickname.Length > UserController.MaxUsernameLength)
             {
                 throw new ArgumentOutOfRangeException(String.Format(
-                    "The nickname must be between {0} and {1} characters long.", 
-                    UserController.MinUsernameLength, 
+                    "The nickname must be between {0} and {1} characters long.",
+                    UserController.MinUsernameLength,
                     UserController.MaxUsernameLength));
             }
             if (nickname.Any(ch => !UserController.ValidNicknameCharacters.Contains(ch)))
@@ -192,6 +302,25 @@ namespace BetMania.Services.Controllers
             {
                 throw new ArgumentOutOfRangeException(
                     "Username must contain only Latin letters, digits .,_");
+            }
+        }
+
+        private void ValidateSessionKey(string sessionkey)
+        {
+            if (sessionkey == null)
+            {
+                throw new ArgumentNullException("Sessionkey is null!");
+            }
+
+            if (sessionkey.Length != SessionKeyLength)
+            {
+                throw new ArgumentOutOfRangeException("Session key must be: " + SessionKeyLength + " symbols long!");
+            }
+
+            if (sessionkey.Any(ch => !UserController.SessionKeyChars.Contains(ch)))
+            {
+                throw new ArgumentOutOfRangeException(
+                    "Session key must contain only Latin letters");
             }
         }
 
