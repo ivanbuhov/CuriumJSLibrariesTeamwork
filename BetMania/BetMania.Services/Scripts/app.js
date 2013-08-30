@@ -21,7 +21,22 @@ app.config = (function () {
 
     //User routes
     router.route('/user/login', function () {
-        layout.showIn('#content', '');
+
+        if (data.users.currentUser()) {
+            router.navigate("/");
+        }
+        else {
+            betMania.viewsFactory.getLoginRegisterView()
+				.then(function (loginViewHtml) {
+				    var loginVm = betMania.viewModelFactory.getLoginRegisterVM(
+						function () {
+						    router.navigate("/");
+						});
+				    var view = new kendo.View(loginViewHtml, { model: loginVm });
+				    layout.showIn("#page", view);
+				});
+        }
+
     });
 
     router.route('/user/logout', function () {
