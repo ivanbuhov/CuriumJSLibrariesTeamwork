@@ -19,7 +19,7 @@ namespace BetMania.Services.Controllers
         private const int MaxUsernameLength = 30;
         private const string ValidUsernameCharacters = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890_.";
         private const string ValidNicknameCharacters = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890_. -";
-        private const string SessionKeyChars = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
+        private const string SessionKeyChars = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM123456789";
         private const int SessionKeyLength = 50;
         private const int Sha1Length = 40;
 
@@ -38,7 +38,7 @@ namespace BetMania.Services.Controllers
             this.random = new Random();
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("getusers")]
         public HttpResponseMessage GetUsers([ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
@@ -63,12 +63,12 @@ namespace BetMania.Services.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.Forbidden);
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "User must be Administrator to access this!");
             }
         }
 
-        [HttpPost]
-        [ActionName("putuser")]
+        [HttpPut]
+        [ActionName("modify")]
         public HttpResponseMessage PutUser(User modifiedUser, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
             this.ValidateSessionKey(sessionKey);
@@ -111,9 +111,9 @@ namespace BetMania.Services.Controllers
             return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Modify failed!");
         }
 
-        [HttpPost]
-        [ActionName("deleteuser")]
-        public HttpResponseMessage DeleteUser(int idUserToDelete, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        [HttpDelete]
+        [ActionName("delete")]
+        public HttpResponseMessage DeleteUser(int id, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
             this.ValidateSessionKey(sessionKey);
 
@@ -128,7 +128,7 @@ namespace BetMania.Services.Controllers
             {
                 HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
                 {
-                    var userToDelete = this.db.Users.FirstOrDefault(x => x.Id == idUserToDelete);
+                    var userToDelete = this.db.Users.FirstOrDefault(x => x.Id == id);
                     if (userToDelete != null)
                     {
                         this.db.Users.Remove(userToDelete);
@@ -239,7 +239,7 @@ namespace BetMania.Services.Controllers
             {
                 if (amount < 0)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.Created, "You can't add a negative amount of money in the balance.");
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "You can't add a negative amount of money in the balance.");
                 }
                 User user = this.db.Users.Where(u => u.SessionKey == sessionKey).FirstOrDefault();
                 if (user != null)
