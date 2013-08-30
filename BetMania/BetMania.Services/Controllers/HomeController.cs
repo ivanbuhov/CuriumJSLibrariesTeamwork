@@ -10,7 +10,7 @@ namespace BetMania.Services.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return Redirect("index.html");
         }
     }
 }
