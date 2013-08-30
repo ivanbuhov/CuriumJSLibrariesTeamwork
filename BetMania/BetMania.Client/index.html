@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <title>Game</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="Scripts/q.min.js"></script>
+        <script src="Scripts/jquery-2.0.3.min.js"></script>
+
+        <script src="Scripts/requester.js"></script>
+        <script src="Scripts/game.data.js"></script>
+        <script src="Scripts/game.ui.js"></script>
+        <script src="Scripts/game.controller.js"></script>
+        <script src="Scripts/widgets.js"></script>
+    </head>
+
+    <body>
+
+        <div id="loading">
+            <img src="img/loading.gif" width="31" height="31" alt="Loading..." />
+            Loading...
+        </div>
+
+        <div id="error-container">
+            <div id="error-box">
+                <div id="error-close"></div>
+                <div id="error-text">Just a simple message for error.</div>
+            </div>
+        </div>
+
+        <section id="profile-box">
+            <div id="avatar">
+                <img src="img/avatar.png" width="80" height="80" />
+            </div>
+            <div id="profile-info">
+                <span id="username">Username</span>
+                <span id="balance">Balance: 100</span>
+                <a id="change-profile">Profile settings</a>
+            </div>
+
+            <section id="profile-options">
+                <ul>
+                    <li>
+                        Avatar: <input type="file" id="upload-avatar" />
+                    </li>
+                    <li>
+                        Add to balance: <input type="text" maxlength="6" size="6" id="balance-field" />
+                        <a id="profile-options-save" class="button">Save</a>
+                    </li>
+                </ul>
+            </section>
+        </section>
+
+        <section id="bar">
+            <div id="central-header">
+                <ul id="menu">
+                    <li><a>Matches</a></li>
+                    <li><a>Admin</a></li>
+                    <li style="float: right;"><a>Lig in/Register</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <ul id="wrapper">
+
+            <li class="page" style="display: block;">
+                <div id="matches-type-container">
+                    <ul id="matches-type-option">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div id="matches-owner-container">
+                    <ul id="matches-owner-option">
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
+                <ul class="tab-widget">
+                    <li>
+                        <a>Football</a>
+                    </li>
+                    <li class="active-tab">
+                        <a>Basketball</a>
+                    </li>
+                    <li>
+                        <a>Volleyball</a>
+                    </li>
+                    <li>
+                        <a>Handball</a>
+                    </li>
+                </ul>
+                <table class="matches" id="all-matches">
+                    <tbody>
+                        <tr>
+                            <td class="match-date">22.05.2012<br />12:30</td>
+                            <td class="match-home">Litex</td>
+                            <td class="match-result">0 : 0</td>
+                            <td class="match-away">Liverpool</td>
+                        </tr>
+                        <tr>
+                            <td class="match-date">22.05.2012<br />12:30</td>
+                            <td class="match-home">Levski</td>
+                            <td class="match-result">0 : 0</td>
+                            <td class="match-away">CSKA</td>
+                        </tr>
+                        <tr>
+                            <td class="match-date">22.05.2012<br />12:30</td>
+                            <td class="match-home">Beroe</td>
+                            <td class="match-result">0 : 0</td>
+                            <td class="match-away">Loko Sofia</td>
+                        </tr>
+                        <tr class="match-bet">
+                            <td colspan="4">
+                                <div class="bet-amount">
+                                    Bet amount: <input type="text" maxlength="6" size="6" />
+                                </div>
+                                <div class="bet-form">
+                                    <div class="bet-profit">
+                                        Profit: <span>0</span>
+                                    </div>
+                                    <a class="button">Bet</a>
+                                </div>
+                                <ul class="bet-type">
+                                    <li>1.20</li>
+                                    <li>1.50</li>
+                                    <li>2.30</li>
+                                    <li>None</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="match-date">22.05.2012<br />12:30</td>
+                            <td class="match-home">Barcelona</td>
+                            <td class="match-result">0 : 0</td>
+                            <td class="match-away">Real Madrid</td>
+                        </tr>
+                        <tr>
+                            <td class="match-date">22.05.2012<br />12:30</td>
+                            <td class="match-home">Manchester United</td>
+                            <td class="match-result">0 : 0</td>
+                            <td class="match-away">Sporting Lisabon</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+
+            <li class="page">
+                <h2>Admin panel</h2>
+
+                <div class="admin-section" id="new-user">
+                    <h3>Add new user</h3>
+                    <div class="control-container">
+                        Username: <input type="text" id="new-username" />
+                    </div>
+                    <div class="control-container">
+                        Balance: <input type="text" maxlength="6" id="new-balance" />
+                    </div>
+                    <div class="control-container">
+                        <a class="button" id="new-user-add">Add</a>
+                    </div>
+                </div>
+
+                <div class="admin-section" id="new-match">
+                    <h3>Add new match</h3>
+                    <div class="control-container">
+                        Home: <input type="text" id="new-home" />
+                    </div>
+                    <div class="control-container">
+                        Away: <input type="text" id="new-away" />
+                    </div>
+                    <div class="control-container">
+                        Home Coefficient: <input type="text" id="new-home-coeff" />
+                    </div>
+                    <div class="control-container">
+                        Away Coefficient: <input type="text" id="new-away-coeff" />
+                    </div>
+                    <div class="control-container">
+                        Away Coefficient: <input type="text" id="new-draw-coeff" />
+                    </div>
+                    <div class="control-container">
+                        <a class="button" id="new-match-add">Add</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="page">
+                Log in / Register
+            </li>
+
+        </ul>
+
+        <script type="text/javascript">
+            game.data.init("http://localhost:1585/api/"); // Init the game data persister
+            game.ui.init(); // Init the game UI
+            game.controller.init(); // Init the game controller
+
+        </script>
+    </body>
+
+</html>

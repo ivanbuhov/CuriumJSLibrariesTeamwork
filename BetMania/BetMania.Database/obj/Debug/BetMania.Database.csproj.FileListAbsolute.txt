@@ -1,0 +1,8 @@
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\bin\Debug\BetMania.Database.dll.config
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\bin\Debug\BetMania.Database.dll
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\bin\Debug\BetMania.Database.pdb
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\bin\Debug\EntityFramework.dll
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\bin\Debug\EntityFramework.xml
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\obj\Debug\BetMania.Database.csprojResolveAssemblyReference.cache
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\obj\Debug\BetMania.Database.dll
+C:\Users\Buhov\Desktop\BetMania\BetMania.Database\obj\Debug\BetMania.Database.pdb

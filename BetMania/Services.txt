@@ -1,0 +1,20 @@
+POST api/user/register   register user               / everyone { username, nickname, authCode }
+POST api/user/login      login user                  / everyone
+POST api/user/logout     logout user                 / user
+PUT  api/user/addmoney/200   add money to balance    / user
+
+GET api/matches                        / everyone
+GET api/matches?category=catName&my=true&status=(finished/progress/upcoming/all)   / ако my е true трябва да си се логнал
+POST api/matches/                      / admin
+POST api/matches/{id}                  / user (bet for a match)
+
+GET api/bets/{MatchId}                 / user (връща мойте бетове за дадения мач)
+
+
+Не имплементирани:
+--------------------------------------------------------------
+PUT api/matches/{matchId}   / admin   маркира го като свършил
+GET api/matches/{id}        / статистика за мача или детайли...
+GET api/bets/{matchId}/all  /admin
+DELETE api/bets/{id}       /user
+

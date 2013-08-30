@@ -1,0 +1,375 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #212121;
+    color: #eee;
+    font-family: 'Comic Sans MS', Arial, Verdana;
+    font-size: 16px;
+}
+
+#loading {
+    line-height: 31px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    position: fixed;
+    top: 200px;
+    left: 45%;
+    color: #666;
+    display: none;
+    z-index: 10;
+}
+
+    #loading img {
+         vertical-align:top;
+    }
+
+#error-container {
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 17, 0.7);
+    position: absolute;
+    display: none;
+}
+
+#error-box {
+    width: 400px;
+    min-height: 100px;
+    border: 1px solid #871414;
+    color: #871414;
+    margin: 100px auto 0 auto;
+    padding: 20px 20px 20px 150px;
+    background: #ffd2d3 url('img/error.png') no-repeat 0 center;
+    border-radius: 5px;
+    position: relative;
+    z-index: 10;
+}
+
+#error-close {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    background: url('img/close-icon.png');
+    cursor: pointer;
+}
+
+    #error-close:hover {
+        background-position: 0 -16px;
+    }
+
+a {
+    color: #339de6;
+    cursor: pointer;
+}
+
+.button {
+    color: #fff;
+    background-color: #339de6;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+    .button:hover {
+        color: #ccc;
+    }
+
+input {
+    background: #121212;
+    border: 1px solid #eee;
+    color: #eee;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#profile-box {
+    margin: 10px auto 0 auto;
+    max-width: 960px;
+    overflow: auto;
+}
+
+    #avatar, #profile-info {
+        float: left;
+    }
+
+#username {
+    float: left;
+    font-size: 25px;
+    display: inline-block;
+}
+
+#balance {
+    float: left;
+    clear: left;
+    display: inline-block;
+}
+
+#change-profile {
+     float: left;
+     clear: left;
+}
+
+    #change-profile:hover {
+        text-decoration: underline;
+    }
+
+#bar {
+    width: 100%;
+    height: 50px;
+    margin: 10px 0 0 0;
+    background: #121212;
+}
+
+#central-header {
+    max-width: 960px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+#menu {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 960px;
+    list-style: none;
+    font-size: 20px;
+}
+
+    #menu li {
+        
+    }
+
+    #menu a {
+        display: block;
+        padding: 0 10px;
+        float: left;
+        line-height: 50px;
+        color: #eee;
+    }
+
+    #menu a:hover {
+        background-color: #339de6;
+    }
+
+#wrapper {
+    width: 960px;
+    max-width: 90%;
+    margin: 10px auto 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.page {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+.matches {
+    width: 100%;
+}
+
+    .matches tr {
+        background-color: #323232;
+        cursor: pointer;
+    }
+
+    .matches tr:hover {
+        background-color: #535353;
+    }
+
+    .matches td {
+        margin: 5px;
+        padding: 5px 20px;
+    }
+
+.match-date {
+    width: 10%;
+    text-align: center;
+    font-size: 10px;
+}
+
+.match-home {
+    width: 40%;
+    text-align: right;
+}
+
+.match-result {
+    text-align: center;
+    min-width: 50px;
+}
+
+.match-bet td {
+    text-align: center;
+}
+
+    .match-bet td:hover {
+        background-color: #323232;
+    }
+
+.match-away {
+    width: 40%;
+    text-align: left;
+}
+
+.tab-widget {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.tab-widget {
+    border: 1px solid #000;
+    font-size: 12px;
+    line-height: 30px;
+    background: url("img/tab-bg.png") repeat-x;
+    clear: both;
+}
+
+.tab-widget li {
+    margin: 0;
+    padding: 0 20px;
+    float: left;
+    height: 30px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: url("img/tab-bg.png") repeat-x;
+    position: relative;
+    
+}
+
+    .tab-widget li.active-tab, .tab-widget li:hover {
+        background-color: #484848;
+        border: 1px solid #339de6;
+    }
+
+        .tab-widget li.active-tab a, .tab-widget li:hover a {
+            color: #fff;
+        }
+
+#profile-options {
+    float: right;
+    display: none;
+}
+
+    #profile-options ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #profile-options li {
+        margin-top: 10px;
+    }
+
+/* Options Widget */
+.options-widget {
+
+}
+
+.options-widget .options-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+    overflow: hidden;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.options-menu li {
+    display: inline-block;
+}
+
+.options-menu a {
+    display: block;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    text-align: center;
+    padding: 0 10px;
+    border: 1px solid #000;
+    background: url('../img/UI/button-background.png') repeat-x;
+    cursor: pointer;
+}
+
+.options-menu .selected a {
+    background-position: 0 -24px;
+}
+
+.options-widget .options-content {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.options-content li {
+    display: none;
+}
+
+.options-content .selected {
+    display: block;
+}
+
+.options-menu .selected {
+    background-color: #339de6;
+    color: #eee;
+}
+
+.options-menu .selected a {
+    color: #eee;
+}
+
+
+.bet-amount {
+    float: left;
+    margin-top: 20px;
+}
+
+.bet-form {
+    float: right;
+    margin: 0;
+}
+
+.bet-button {
+    display: block;
+    color: #fff;
+    background-color: #339de6;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.bet-profit {
+    margin-bottom: 10px;
+}
+
+
+#profile-options-save {
+    padding: 3px 10px;
+    margin-left: 10px;
+}
+
+.control-container {
+    margin: 10px;
+    overflow: auto;
+}
+
+.admin-section {
+    width: 50%;
+    float: left;
+}
+
+#matches-type-container {
+    float: left;
+    overflow: auto;
+    margin-bottom: 20px;
+}
+
+#matches-owner-container {
+    float: right;
+    overflow: auto;
+    margin-bottom: 20px;
+}

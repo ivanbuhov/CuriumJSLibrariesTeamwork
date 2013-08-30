@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetMania.Database", "BetMania.Database\BetMania.Database.csproj", "{EA551015-179E-4715-B29F-1AE2F628AE44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetMania.Services", "BetMania.Services\BetMania.Services.csproj", "{DEDF6688-2585-4BB0-869A-E16859F8C513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetMania.Client", "BetMania.Client\BetMania.Client.csproj", "{1E510F77-289A-4B3F-B9D7-9F9FF79BCBE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA551015-179E-4715-B29F-1AE2F628AE44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA551015-179E-4715-B29F-1AE2F628AE44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA551015-179E-4715-B29F-1AE2F628AE44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA551015-179E-4715-B29F-1AE2F628AE44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEDF6688-2585-4BB0-869A-E16859F8C513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEDF6688-2585-4BB0-869A-E16859F8C513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEDF6688-2585-4BB0-869A-E16859F8C513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEDF6688-2585-4BB0-869A-E16859F8C513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E510F77-289A-4B3F-B9D7-9F9FF79BCBE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E510F77-289A-4B3F-B9D7-9F9FF79BCBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E510F77-289A-4B3F-B9D7-9F9FF79BCBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E510F77-289A-4B3F-B9D7-9F9FF79BCBE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

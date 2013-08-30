@@ -1,0 +1,5 @@
+C:\Users\Buhov\Desktop\BetMania\BetMania.Client\bin\BetMania.Client.dll
+C:\Users\Buhov\Desktop\BetMania\BetMania.Client\bin\BetMania.Client.pdb
+C:\Users\Buhov\Desktop\BetMania\BetMania.Client\obj\Debug\BetMania.Client.csprojResolveAssemblyReference.cache
+C:\Users\Buhov\Desktop\BetMania\BetMania.Client\obj\Debug\BetMania.Client.dll
+C:\Users\Buhov\Desktop\BetMania\BetMania.Client\obj\Debug\BetMania.Client.pdb
