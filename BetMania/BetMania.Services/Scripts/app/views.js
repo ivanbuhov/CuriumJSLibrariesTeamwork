@@ -32,7 +32,12 @@ betMania.viewsFactory = (function () {
         return getTemplate("login-register-form");
     }
 
+    function getLayoutView() {
+        return getTemplate("layout");
+    }
+
     return {
-        getLoginRegisterView: getLoginRegisterView
+        getLoginRegisterView: getLoginRegisterView,
+        getLayoutView: getLayoutView
     };
 }());

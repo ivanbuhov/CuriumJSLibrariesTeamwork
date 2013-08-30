@@ -200,6 +200,7 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\app\data.js" />
     <Content Include="Scripts\app\viewModel.js" />
+    <Content Include="Scripts\app\views.js" />
     <Content Include="Scripts\libs\class.js" />
     <Content Include="Scripts\libs\http-requester.js" />
     <Content Include="Scripts\libs\jquery.min.js" />
@@ -208,7 +209,9 @@
     <Content Include="Scripts\libs\rsvp.min.js" />
     <Content Include="Scripts\libs\_references.js" />
     <Content Include="Scripts\partials\home.html" />
+    <Content Include="Scripts\partials\layout.html" />
     <Content Include="Scripts\partials\login-register-form.html" />
+    <Content Include="Scripts\partials\matches-table.html" />
     <Content Include="Styles\admin.css" />
     <Content Include="Styles\index.css" />
     <Content Include="Styles\kendo.black.min.css" />

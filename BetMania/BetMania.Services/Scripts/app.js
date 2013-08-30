@@ -1,56 +1,64 @@
-﻿var app = app || {};
+﻿/// <reference path="../libs/_references.js" />
+var betMania = betMania || {};
 
 
-app.config = (function () {
-    var layout = new kendo.Layout('main-layout');
+(function () {
+    var layout;
+    var betmania = betMania.viewsFactory;
+   
+    betMania.viewsFactory.getLayoutView()
+    .then(function (layoutHtml) {
 
-    var router = new kendo.Router({
-        init: function () {
-            layout.render('#application');
-        }
-    });
+        layout = new kendo.Layout(layoutHtml);
+        var data = betMania.data.getDataPersister("/api");
 
-    //mymatches default route
-    router.route('/', function () {
-        layout.showIn('#content', '');
-    });
+        var router = new kendo.Router({
+            init: function () {
+                layout.render('#application');
+            }
+        });
 
-    router.route('/home', function () {
-        layout.showIn('#content', '');
-    });
+        //mymatches default route
+        router.route('/', function () {
+            layout.showIn('#content', '');
+        });
 
-    //User routes
-    router.route('/user/login', function () {
+        router.route('/home', function () {
+            layout.showIn('#content', '');
+        });
 
-        if (data.users.currentUser()) {
-            router.navigate("/");
-        }
-        else {
-            betMania.viewsFactory.getLoginRegisterView()
-				.then(function (loginViewHtml) {
-				    var loginVm = betMania.viewModelFactory.getLoginRegisterVM(
-						function () {
-						    router.navigate("/");
-						});
-				    var view = new kendo.View(loginViewHtml, { model: loginVm });
-				    layout.showIn("#page", view);
-				});
-        }
+        //User routes
+        router.route('/user/login', function () {
 
-    });
+            if (data.users.getNickname()) {
+                router.navigate("/");
+            }
+            else {
+                betMania.viewsFactory.getLoginRegisterView()
+				    .then(function (loginViewHtml) {
+				        var loginVm = betMania.viewModelFactory.getLoginRegisterVM(
+						    function () {
+						        router.navigate("/");
+						    });
+				        var view = new kendo.View(loginViewHtml, { model: loginVm });
+				        layout.showIn("#page", view);
+				    });
+            }
 
-    router.route('/user/logout', function () {
-        layout.showIn('#content', '');
-    });
+        });
 
-    //Matches routes
-    router.route('/allmatches', function () {
-        layout.showIn('#content','');
-    });
+        router.route('/user/logout', function () {
+            layout.showIn('#content', '');
+        });
 
-    
+        //Matches routes
+        router.route('/allmatches', function () {
+            layout.showIn('#content','');
+        });
 
-    $(function () {
-        router.start();
+        $(function () {
+            router.start();
+        });
+
     });
 }());

@@ -12,103 +12,17 @@
     <script src="Scripts/libs/jquery.min.js"></script>
     <script src="Scripts/libs/http-requester.js"></script>
     <script src="Scripts/libs/class.js"></script>
-    <script src="Scripts/libs/kendo.web.min.js"></script>
+    <script src="Scripts/libs/kendo.web.min.js"></script> 
+    <script src="Scripts/app/views.js"></script>
+    <script src="Scripts/app/viewModel.js"></script>
+    <script src="Scripts/app/data.js"></script>
+    <script src="Scripts/app.js"></script>
+   
+
 </head>
 <body>
-    <ul id="test">
-        <li><a href="/admin.html">Aministration</a></li>
-        <li><a href="#">Item 2</a></li>
-        <li><a href="#">Item 3</a></li>
-        <li><a href="#">Item 4</a></li>
-    </ul>
+    <div id="application"></div>
+    
 
-    <div id="loading">
-        <img src="Images/loading.gif" width="31" height="31" alt="Loading..." />
-        Loading...
-    </div>
-
-    <div id="error-container">
-        <div id="error-box">
-            <div id="error-close"></div>
-            <div id="error-text">Just a simple message for error.</div>
-        </div>
-    </div>
-
-        <section id="profile-box">
-            <div id="avatar">
-                <img src="Images/avatar.png" width="80" height="80" />
-            </div>
-            <div id="profile-info">
-                <span id="username">Username</span>
-                <span id="balance">Balance: 100</span>
-                <a id="add-money">Add more</a>
-            </div>
-
-        </section>
-
-        <section id="bar">
-            <div id="central-header">
-                <ul id="menu">
-                    <li><a>Matches</a></li>
-                    <li><a>Admin</a></li>
-                    <li style="float: right;"><a>Log in/Register</a></li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="wrapper">
-
-            <section class="page" style="display: block;">
-
-                <table class="matches" id="all-matches">
-                    <tbody>
-                        <tr>
-                            <td class="match-date">22.05.2012<br />12:30</td>
-                            <td class="match-home">Litex</td>
-                            <td class="match-result">0 : 0</td>
-                            <td class="match-away">Liverpool</td>
-                        </tr>
-                        <tr>
-                            <td class="match-date">22.05.2012<br />12:30</td>
-                            <td class="match-home">Levski</td>
-                            <td class="match-result">0 : 0</td>
-                            <td class="match-away">CSKA</td>
-                        </tr>
-                        <tr>
-                            <td class="match-date">22.05.2012<br />12:30</td>
-                            <td class="match-home">Beroe</td>
-                            <td class="match-result">0 : 0</td>
-                            <td class="match-away">Loko Sofia</td>
-                        </tr>
-                        <tr class="match-bet">
-                            <td colspan="4">
-                                <div class="bet-amount">
-                                    Bet amount: <input type="text" maxlength="6" size="6" />
-                                </div>
-                                <div class="bet-form">
-                                    <div class="bet-profit">
-                                        Profit: <span>0</span>
-                                    </div>
-                                    <a class="button">Bet</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="match-date">22.05.2012<br />12:30</td>
-                            <td class="match-home">Barcelona</td>
-                            <td class="match-result">0 : 0</td>
-                            <td class="match-away">Real Madrid</td>
-                        </tr>
-                        <tr>
-                            <td class="match-date">22.05.2012<br />12:30</td>
-                            <td class="match-home">Manchester United</td>
-                            <td class="match-result">0 : 0</td>
-                            <td class="match-away">Sporting Lisabon</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-        </section>
 </body>
 </html>
