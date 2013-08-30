@@ -13,14 +13,18 @@
     <script src="Scripts/libs/http-requester.js"></script>
     <script src="Scripts/libs/class.js"></script>
     <script src="Scripts/libs/kendo.web.min.js"></script>
+    <script src="Scripts/app/data.js"></script>
+    <script src="Scripts/app/viewModel.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
 </head>
 <body>
-    <ul id="test">
-        <li><a href="#">Item 1</a></li>
-        <li><a href="#">Item 2</a></li>
-        <li><a href="#">Item 3</a></li>
-        <li><a href="#">Item 4</a></li>
+    <ul id="admin-menu">
+        <li><a href="/admin.html">Administration</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Return</a></li>
     </ul>
+
+    <div id="layout"></div>
 
     <script>
         $("#test").kendoMenu();
