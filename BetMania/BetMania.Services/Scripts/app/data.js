@@ -3,12 +3,14 @@ var betMania = betMania || {};
 
 betMania.data = (function () {
     
-    var sessionKey = "";
-
     var saveUserData = function(user){
         localStorage.setItem("sessionKey", user.sessionKey);
         localStorage.setItem("nickname", user.nickname);
-        sessionKey = user.sessionKey;
+    }
+
+    var clearUserData = function () {
+        localStorage.removeItem("sessionKey");
+        localStorage.removeItem("nickname");
     }
 
     var loadUserData = function(){
@@ -17,6 +19,10 @@ betMania.data = (function () {
 
     var getNickname = function(){
         return localStorage.getItem("nickname");
+    }
+
+    var getSessionKey = function () {
+        return localStorage.getItem("sessionKey");
     }
     
     var isUserLogged = function(){
@@ -58,7 +64,7 @@ betMania.data = (function () {
 
             return betMania.requester.postJSON(this.baseUrl + "login", user).
                 then(function (result) {
-                    saveUserData(user);
+                    saveUserData(result);
                 });
         },
         register: function (username, password, nickname) {
@@ -73,17 +79,84 @@ betMania.data = (function () {
                     saveUserData(user);
                 });
         },
-        logout: function () {        
+        logout: function () { 
             var headers = {
-                "X-sessionKey": sessionKey
+                "X-sessionKey": getSessionKey()
             }
 
-            return betMania.requester.putJSON(this.baseUrl, {}, headers);
+            return betMania.requester.putJSON(this.baseUrl + "logout", {}, headers)
+                .then(function () {
+                    clearUserData();
+                });
+        },
+        addMoney: function (ammount) {
+            var headers = {
+                "X-sessionKey": getSessionKey()
+            }
+
+            return betMania.requester.putJSON(this.baseUrl + "addmoney/" + ammount, {}, headers);
+        },
+        getUsers: function () {
+            var headers = {
+                "X-sessionKey": getSessionKey()
+            }
+
+            return betMania.requester.getJSON(this.baseUrl + "getusers/", headers)
+            
+        },
+        deleteUser: function (userId) {
+            var headers = {
+                "X-sessionKey": getSessionKey()
+            }
+
+            return betMania.requester.deleteJSON(this.baseUrl + "delete/" + userId, headers);
+        },
+        modify: function (user) {
+            var headers = {
+                "X-sessionKey": getSessionKey()
+            }
+
+            return betMania.requester.putJSON(this.baseUrl + "modify", user, headers);            
         }
+
     });
 
     var MatchesPersister = Class.create({
+        init: function (baseUrl) {
+            this.baseUrl = baseUrl;
+        },
+        getMatches: function (category, status, my, page, take) {
+            var headers = {};               
 
+            var url = this.baseUrl + "?";
+            if (category) {
+                url += "category=" + category +"&";
+            }
+
+            if (status) {
+                url += "status=" + status + "&";
+            }
+
+            if (my) {
+                url += "my=" + true + "&";
+                headers["X-sessionKey"] = getSessionKey();
+            }
+
+            if (page) {
+                url += "page=" + page + "&";
+            }
+
+            if (take) {
+                url += "take=" + take;
+            }
+
+            return betMania.requester.getJSON(url, headers)
+            .then(function (response, status, my) {
+                debugger;
+            }, function (err) {
+                debugger;
+            });
+        }
     });
 
     return {

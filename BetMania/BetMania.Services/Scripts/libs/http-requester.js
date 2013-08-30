@@ -20,7 +20,27 @@ betMania.requester = (function ($) {
 				}
 			});
 		});
+
 		return promise;
+	}
+
+	function deleteJSON(serviceUrl, headers) {
+	    var promise = new RSVP.Promise(function (resolve, reject) {
+	        jQuery.ajax({
+	            url: serviceUrl,
+	            type: "DELETE",
+	            headers: headers,
+	            dataType: "json",
+	            success: function (data) {
+	                resolve(data);
+	            },
+	            error: function (err) {
+	                reject(err);
+	            }
+	        });
+	    });
+
+	    return promise;
 	}
 
 	function postJSON(serviceUrl, data, headers) {
@@ -73,6 +93,7 @@ betMania.requester = (function ($) {
 	return {
 		getJSON: getJSON,
 		postJSON: postJSON,
-		putJSON: putJSON
+		putJSON: putJSON,
+		deleteJSON: deleteJSON
 	}
 }(jQuery));
