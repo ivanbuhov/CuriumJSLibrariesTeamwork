@@ -1,14 +1,16 @@
 ﻿/// <reference path="require.js" />
 /// <reference path="jquery-2.0.3.js" />
 /// <reference path="rsvp.min.js" />
+var betMania = betMania || {};
 
-var requester = (function ($) {
+betMania.requester = (function ($) {
 
-	function getJSON(serviceUrl) {
+	function getJSON(serviceUrl, headers) {
 		var promise = new RSVP.Promise(function (resolve, reject) {
 			jQuery.ajax({
 				url: serviceUrl,
 				type: "GET",
+                headers:headers,
 				dataType: "json",
 				success: function (data) {
 					resolve(data);
@@ -21,13 +23,14 @@ var requester = (function ($) {
 		return promise;
 	}
 
-	function postJSON(serviceUrl, data) {
+	function postJSON(serviceUrl, data, headers) {
 		var promise = new RSVP.Promise(function (resolve, reject) {
 			jQuery.ajax({
 				url: serviceUrl,
 				dataType: "json",
 				type: "POST",
 				contentType: "application/json",
+				headers: headers,
 				data: JSON.stringify(data),
 				success: function (data) {
 					resolve(data);
@@ -40,20 +43,20 @@ var requester = (function ($) {
 		return promise;
 	}
 
-	function putJSON(serviceUrl, data) {
+	function putJSON(serviceUrl, data, headers) {
 	    var promise = new RSVP.Promise(function (resolve, reject) {
 	        jQuery.ajax({
 	            url: serviceUrl,
 	            dataType: "json",
 	            type: "PUT",
 	            contentType: "application/json",
+	            headers: headers,
 	            data: JSON.stringify(data),
 	            success: function (data) {
 	                resolve(data);
 	            },
 	            error: function (err) {
-	                if (err.status === 200) {
-	                   
+	                if (err.status === 200) {	                   
 	                    resolve(err);
 	                }
 	                else {
