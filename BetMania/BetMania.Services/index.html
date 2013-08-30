@@ -13,6 +13,7 @@
     <script src="Scripts/libs/http-requester.js"></script>
     <script src="Scripts/libs/class.js"></script>
     <script src="Scripts/libs/kendo.web.min.js"></script>
+    <script src="Scripts/app.js"></script>
 </head>
 <body>
     <ul id="test">
@@ -21,9 +22,14 @@
         <li><a href="#">Item 3</a></li>
         <li><a href="#">Item 4</a></li>
     </ul>
-
+    <div id="application"></div>
     <script>
         $("#test").kendoMenu();
+    </script>
+
+    <script type="text/kendo-tmpl" id="main-layout">
+        <div id="content">
+        </div>
     </script>
 </body>
 </html>
