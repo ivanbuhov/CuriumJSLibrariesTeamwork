@@ -1,6 +1,6 @@
 ﻿/// <reference path="../libs/_references.js" />
 var betMania = betMania || {};
-betMania.data = betMania.data.getDataPersister("/api");
+//betMania.data = betMania.data.getDataPersister("/api");
 
 
 (function () {

@@ -126,27 +126,43 @@ betMania.data = (function () {
             this.baseUrl = baseUrl;
         },
         getMatches: function (category, status, my, page, take) {
-            var headers = {};               
+            var headers = {
+                "X-sessionKey":""
+            };
+            var queryStartAdded = false;
 
-            var url = this.baseUrl + "?";
-            if (category) {
-                url += "category=" + category +"&";
+            var url = this.baseUrl;
+            var checkForQuery = function () {
+                if (!queryStartAdded) {
+                    url += "?"
+                    queryStartAdded = true;
+                }
+            }
+
+            if (category) {                
+                url += "?category=" + category + "&";
+                queryStartAdded = true;
             }
 
             if (status) {
+                checkForQuery();
                 url += "status=" + status + "&";
+                
             }
 
             if (my) {
+                checkForQuery();
                 url += "my=" + true + "&";
                 headers["X-sessionKey"] = getSessionKey();
             }
 
             if (page) {
+                checkForQuery();
                 url += "page=" + page + "&";
             }
 
             if (take) {
+                checkForQuery();
                 url += "take=" + take;
             }
 
