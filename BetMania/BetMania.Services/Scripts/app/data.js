@@ -159,9 +159,5 @@ betMania.data = (function () {
         }
     });
 
-    return {
-        getDataPersister: function (baseUrl) {
-            return new DataPersister(baseUrl);
-        }
-    }
+    return new DataPersister("/api"); 
 }());
