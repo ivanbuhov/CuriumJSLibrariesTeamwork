@@ -65,6 +65,7 @@ betMania.data = (function () {
             return betMania.requester.postJSON(this.baseUrl + "login", user).
                 then(function (result) {
                     saveUserData(result);
+                    return result;
                 });
         },
         register: function (username, password, nickname) {
@@ -76,7 +77,8 @@ betMania.data = (function () {
 
             return betMania.requester.postJSON(this.baseUrl + "register", user).
                 then(function (result) {
-                    saveUserData(user);
+                    saveUserData(result);
+                    return result;
                 });
         },
         logout: function () { 
