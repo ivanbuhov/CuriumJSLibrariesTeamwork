@@ -127,29 +127,51 @@ betMania.data = (function () {
         init: function (baseUrl) {
             this.baseUrl = baseUrl;
         },
-        getMatches: function (category, status, my, page, take) {
-            var headers = {};               
+        /* takes options {} with properties category, status, my, page, take
+        * {category:"football",my:true}
+        */
+        getMatches: function (options) {
+            var headers = {
+                "X-sessionKey":""
+            };
+            var queryStartAdded = false;
 
-            var url = this.baseUrl + "?";
-            if (category) {
-                url += "category=" + category +"&";
+            var url = this.baseUrl;
+            var checkForQuery = function () {
+                if (!queryStartAdded) {
+                    url += "?"
+                    queryStartAdded = true;
+                }
             }
 
-            if (status) {
-                url += "status=" + status + "&";
+            if (options.category) {                
+                url += "?category=" + options.category + "&";
+                queryStartAdded = true;
             }
 
-            if (my) {
+            if (options.status) {
+                checkForQuery();
+                url += "status=" + options.status + "&";                
+            }
+            else {
+                checkForQuery();
+                url += "status=all&";
+            }
+
+            if (options.my) {
+                checkForQuery();
                 url += "my=" + true + "&";
                 headers["X-sessionKey"] = getSessionKey();
             }
 
-            if (page) {
-                url += "page=" + page + "&";
+            if (options.page) {
+                checkForQuery();
+                url += "page=" + options.page + "&";
             }
 
-            if (take) {
-                url += "take=" + take;
+            if (options.take) {
+                checkForQuery();
+                url += "take=" + options.take;
             }
 
             return betMania.requester.getJSON(url, headers)
@@ -161,9 +183,5 @@ betMania.data = (function () {
         }
     });
 
-    return {
-        getDataPersister: function (baseUrl) {
-            return new DataPersister(baseUrl);
-        }
-    }
+    return new DataPersister("/api"); 
 }());
