@@ -67,84 +67,123 @@ namespace BetMania.Services.Controllers
             }
         }
 
+        [HttpGet]
+        [ActionName("getuserbyid")]
+        public HttpResponseMessage GetUsers(int id, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        {
+            HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+            {
+                this.ValidateSessionKey(sessionKey);
+
+                var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
+
+                if (user == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+                }
+
+                if (user.IsAdmin)
+                {
+                    var searchedUser = this.db.Users.FirstOrDefault(x => x.Id == id);
+
+                    if (searchedUser == null)
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+                    }
+
+                    return Request.CreateResponse(HttpStatusCode.Found);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.Forbidden);
+                }
+            });
+
+            return response;
+        }
+
         [HttpPut]
         [ActionName("modify")]
         public HttpResponseMessage PutUser(User modifiedUser, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
-            this.ValidateSessionKey(sessionKey);
-
-            var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
-
-            if (user == null)
+            HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
-            }
+                this.ValidateSessionKey(sessionKey);
 
-            if (user.IsAdmin)
-            {
-                int id = user.Id;
-                HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+                var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
+
+                if (user == null)
                 {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+                }
+
+                if (user.IsAdmin)
+                {
+                    int id = user.Id;
                     var userToModify = this.db.Users.FirstOrDefault(x => x.Id == id);
-                    userToModify = new User()
+
+                    if (userToModify == null)
                     {
-                        Id = modifiedUser.Id,
-                        AuthCode = modifiedUser.AuthCode,
-                        Avatar = modifiedUser.Avatar,
-                        Balance = modifiedUser.Balance,
-                        IsAdmin = modifiedUser.IsAdmin,
-                        Nickname = modifiedUser.Nickname,
-                        SessionKey = modifiedUser.SessionKey,
-                        Username = modifiedUser.Username
-                    };
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+                    }
+
+                    userToModify.AuthCode = modifiedUser.AuthCode;
+                    userToModify.Avatar = modifiedUser.Avatar;
+                    userToModify.Balance = modifiedUser.Balance;
+                    userToModify.IsAdmin = modifiedUser.IsAdmin;
+                    userToModify.Nickname = modifiedUser.Nickname;
+                    userToModify.SessionKey = modifiedUser.SessionKey;
+                    userToModify.Username = modifiedUser.Username;
 
                     db.SaveChanges();
 
                     return Request.CreateResponse(HttpStatusCode.NoContent);
-                });
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.Forbidden);
-            }
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.Forbidden);
+                }
+            });
 
-            return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Modify failed!");
+            return response;
         }
 
         [HttpDelete]
         [ActionName("delete")]
         public HttpResponseMessage DeleteUser(int id, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
-            this.ValidateSessionKey(sessionKey);
 
-            var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
-
-            if (user == null)
+            HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
-            }
+                this.ValidateSessionKey(sessionKey);
 
-            if (user.IsAdmin)
-            {
-                HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+                var user = this.db.Users.FirstOrDefault(x => x.SessionKey == sessionKey);
+
+                if (user == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
+                }
+
+                if (user.IsAdmin)
                 {
                     var userToDelete = this.db.Users.FirstOrDefault(x => x.Id == id);
-                    if (userToDelete != null)
+                    if (userToDelete == null)
                     {
-                        this.db.Users.Remove(userToDelete);
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "User doesn't exist! Invalid session key!");
                     }
 
+                    this.db.Users.Remove(userToDelete);
                     db.SaveChanges();
 
                     return Request.CreateResponse(HttpStatusCode.OK, userToDelete);
-                });
-            }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.Forbidden);
-            }
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.Forbidden);
+                }
+            });
 
-            return Request.CreateErrorResponse(HttpStatusCode.NotModified, "Delete failed!");
+            return response;
         }
 
         // POST api/user/register
