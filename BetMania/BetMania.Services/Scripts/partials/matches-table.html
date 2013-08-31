@@ -49,9 +49,9 @@
     <tbody>
         <script type="text/x-kendo-template" id="single-row-template">
             <tr>
-                <td class="match-date" data-bind="text: startDate"></td>
+                <td class="match-date" data-bind="text: startTime"></td>
                 <td class="match-home" data-bind="text: home"></td>
-                <td class="match-result" data-bind="text: homeScore"></td>
+                <td class="match-result" > <span data-bind="text: homeScore"/> : <span data-bind="text: awayScore"/></td>
                 <td class="match-away" data-bind="text: away"></td>
             </tr>
         </script>
