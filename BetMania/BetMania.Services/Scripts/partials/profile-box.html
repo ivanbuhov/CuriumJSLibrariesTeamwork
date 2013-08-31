@@ -2,7 +2,11 @@
     <img src="Images/avatar.png" width="80" height="80" />
 </div>
 <div id="profile-info">
-    <span id="nickname">Anonymous</span>
-    <span id="balance">Balance: <span>100</span></span>
-    <a id="add-money">Add more</a>
+    <span id="nickname" data-bind="text: nickname"></span>
+    <span id="balance" >Balance: <span data-bind="text: balance"></span></span>
+    <script type="text/x-kendo-template">
+        # if(balance !== "none") { #
+        <a id="add-money">Add more</a>
+        # } #
+    </script>
 </div>

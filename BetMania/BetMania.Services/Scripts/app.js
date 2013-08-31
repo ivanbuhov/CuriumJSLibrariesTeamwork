@@ -5,17 +5,34 @@ var betMania = betMania || {};
 
 (function () {
 
-    betMania.views.getLayout()
-    .then(function (layout) {
+    RSVP.all(
+        [betMania.views.getLayout(),
+        betMania.views.getProfileBoxView()])
+    .then(function (results) {
 
-        var router = new kendo.Router({
+        // Initializes the layout
+        var layout = results[0];
+        var profileBoxHtml = results[1];
+        var profileBoxVM = betMania.viewModels.userProfileViewModel;
+        var profileBoxView = new kendo.View(profileBoxHtml, { model: profileBoxVM });
+
+        // If the user is logged in
+        if (betMania.data.isUserLogged()) {
+            // set the view model
+        }
+        
+        betMania.router = new kendo.Router({
             init: function () {
+                layout.showIn("#profile-box", profileBoxView);
                 layout.render('#application');
             }
         });
 
+
+        // Initializes the routes
+
         // all matches default route
-        router.route('/', function () {
+        betMania.router.route('/', function () {
             betMania.views.getMatchesTableView()
 				.then(function (matchesTableHtml) {
 				    var loginVM = betMania.viewModels.loginRegisterViewModel;
@@ -25,7 +42,7 @@ var betMania = betMania || {};
         });
 
         // my matches default route
-        router.route('/mymatches', function () {
+        betMania.router.route('/mymatches', function () {
             betMania.views.getMatchesTableView()
 				.then(function (matchesTableHtml) {
 				    var loginVM = betMania.viewModels.loginRegisterViewModel;
@@ -35,10 +52,10 @@ var betMania = betMania || {};
         });
 
         // login route
-        router.route('/login', function () {
+        betMania.router.route('/login', function () {
 
             if (betMania.data.isUserLogged()) {
-                router.navigate("/");
+                betMania.router.navigate("/");
             }
             else {
                 // get ViewModel
@@ -54,12 +71,12 @@ var betMania = betMania || {};
         });
 
         // logout route
-        router.route('/logout', function () {
+        betMania.router.route('/logout', function () {
             layout.showIn('#page', 'logout');
         });
 
         $(function () {
-            router.start();
+            betMania.router.start();
         });
 
     });
