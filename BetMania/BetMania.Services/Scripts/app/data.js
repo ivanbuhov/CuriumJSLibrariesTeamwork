@@ -65,6 +65,7 @@ betMania.data = (function () {
             return betMania.requester.postJSON(this.baseUrl + "login", user).
                 then(function (result) {
                     saveUserData(result);
+                    return result;
                 });
         },
         register: function (username, password, nickname) {
@@ -76,7 +77,8 @@ betMania.data = (function () {
 
             return betMania.requester.postJSON(this.baseUrl + "register", user).
                 then(function (result) {
-                    saveUserData(user);
+                    saveUserData(result);
+                    return result;
                 });
         },
         logout: function () { 
@@ -125,7 +127,10 @@ betMania.data = (function () {
         init: function (baseUrl) {
             this.baseUrl = baseUrl;
         },
-        getMatches: function (category, status, my, page, take) {
+        /* takes options {} with properties category, status, my, page, take
+        * {category:"football",my:true}
+        */
+        getMatches: function (options) {
             var headers = {
                 "X-sessionKey":""
             };
@@ -139,31 +144,34 @@ betMania.data = (function () {
                 }
             }
 
-            if (category) {                
-                url += "?category=" + category + "&";
+            if (options.category) {                
+                url += "?category=" + options.category + "&";
                 queryStartAdded = true;
             }
 
-            if (status) {
+            if (options.status) {
                 checkForQuery();
-                url += "status=" + status + "&";
-                
+                url += "status=" + options.status + "&";                
+            }
+            else {
+                checkForQuery();
+                url += "status=all&";
             }
 
-            if (my) {
+            if (options.my) {
                 checkForQuery();
                 url += "my=" + true + "&";
                 headers["X-sessionKey"] = getSessionKey();
             }
 
-            if (page) {
+            if (options.page) {
                 checkForQuery();
-                url += "page=" + page + "&";
+                url += "page=" + options.page + "&";
             }
 
-            if (take) {
+            if (options.take) {
                 checkForQuery();
-                url += "take=" + take;
+                url += "take=" + options.take;
             }
 
             return betMania.requester.getJSON(url, headers)
