@@ -15,6 +15,8 @@ betMania.viewModels = (function () {
                 .then(function (userData) {
                     betMania.viewModels.userProfileViewModel.set("nickname", userData.nickname);
                     betMania.viewModels.userProfileViewModel.set("balance", userData.balance);
+                    betMania.viewModels.userProfileViewModel.set("isLogged", true);
+                    betMania.ui.toggleNavigation();
                     betMania.router.navigate("/");
                 },
                 function (errorData) {
@@ -24,9 +26,13 @@ betMania.viewModels = (function () {
         },
         register: function () {
             return betMania.data.users
-                .register(this.get("registerUsername"), this.get("registerNickname"), this.get("registerPassword"))
+                .register(this.get("registerUsername"), this.get("registerPassword"), this.get("registerNickname"))
                 .then(function (userData) {
-                    console.log(userData);
+                    betMania.viewModels.userProfileViewModel.set("nickname", userData.nickname);
+                    betMania.viewModels.userProfileViewModel.set("balance", userData.balance);
+                    betMania.viewModels.userProfileViewModel.set("isLogged", true);
+                    betMania.ui.toggleNavigation();
+                    betMania.router.navigate("/");
                 },
                 function (errorData) {
                     console.log(errorData);
@@ -36,6 +42,7 @@ betMania.viewModels = (function () {
     });
 
     var userProfileViewModel = kendo.observable({
+        isLogged: false,
         nickname: "Anonymous",
         balance: "none"
     });
