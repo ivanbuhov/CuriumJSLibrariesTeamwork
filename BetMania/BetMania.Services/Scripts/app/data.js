@@ -1,4 +1,4 @@
-/// <reference path="../libs/_references.js" />
+﻿/// <reference path="../libs/_references.js" />
 var betMania = betMania || {};
 
 betMania.data = (function () {
@@ -59,7 +59,8 @@ betMania.data = (function () {
         },
         getNickname: function(){
             return getNickname();
-        }
+        },
+        balance: balance
     });
 
     var UsersPersister = Class.create({
