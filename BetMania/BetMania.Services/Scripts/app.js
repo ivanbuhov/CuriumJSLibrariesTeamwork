@@ -41,9 +41,11 @@ betMania.data = betMania.data.getDataPersister("/api");
                 router.navigate("/");
             }
             else {
+                // get ViewModel
+                var loginVM = betMania.viewModels.loginRegisterViewModel;
+                // get View
                 betMania.views.getLoginRegisterView()
 				.then(function (loginViewHtml) {
-				    var loginVM = betMania.viewModels.loginRegisterViewModel;
 				    var view = new kendo.View(loginViewHtml, { model: loginVM });
 				    layout.showIn("#page", view);
 				});
