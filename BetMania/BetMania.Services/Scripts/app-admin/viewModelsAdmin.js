@@ -23,10 +23,7 @@ betMania = betMania || {};
                 });
 
                 return new kendo.observable({
-                    matchesDataSource: data,
-                    columns: '[ "away"' +
-                            ',{"field":"home","title":"Home","width":"50px"}, ' +
-                            ' {"command": "destroy"}]'
+                    matchesDataSource: data
                 });
             }, function (err) {
                 console.log(err);
