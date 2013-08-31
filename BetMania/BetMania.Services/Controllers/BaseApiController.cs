@@ -15,9 +15,29 @@ namespace BetMania.Services.Controllers
             {
                 return operation();
             }
-            catch (Exception e)
+            catch (InvalidOperationException ex) 
             {
-                HttpResponseMessage errorMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, e.Message);
+                HttpResponseMessage errorMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                throw new HttpResponseException(errorMessage);
+            }
+            catch (ArgumentNullException ex)
+            {
+                HttpResponseMessage errorMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                throw new HttpResponseException(errorMessage);
+            }
+            catch (ArgumentException ex) 
+            {
+                HttpResponseMessage errorMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                throw new HttpResponseException(errorMessage);
+            }
+            catch (NullReferenceException ex)
+            {
+                HttpResponseMessage errorMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
+                throw new HttpResponseException(errorMessage);
+            }
+            catch (Exception ex)
+            {
+                HttpResponseMessage errorMessage = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
                 throw new HttpResponseException(errorMessage);
             }
         }
