@@ -28,10 +28,6 @@ betMania.views = (function () {
         return promise;
     }
 
-    function getLoginRegisterView() {
-        return getTemplate("login-register-form");
-    }
-
     function getLayout() {
         return getTemplate("layout")
         .then(function (layoutHtml) {
@@ -39,13 +35,22 @@ betMania.views = (function () {
         });
     }
 
+    function getLoginRegisterView() {
+        return getTemplate("login-register-form");
+    }
+
     function getMatchesTableView() {
         return getTemplate("matches-table");
     }
 
+    function getProfileBoxView() {
+        return getTemplate("profile-box");
+    }
+
     return {
+        getLayout: getLayout,
         getLoginRegisterView: getLoginRegisterView,
         getMatchesTableView: getMatchesTableView,
-        getLayout: getLayout
+        getProfileBoxView: getProfileBoxView
     };
 }());
