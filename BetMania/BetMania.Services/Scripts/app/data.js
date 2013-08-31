@@ -1,16 +1,26 @@
-﻿/// <reference path="../libs/_references.js" />
+/// <reference path="../libs/_references.js" />
 var betMania = betMania || {};
 
 betMania.data = (function () {
-    
+    var balance = function (newBalance) {
+        if (newBalance) {
+            localStorage.setItem("balance", newBalance);
+        }
+        else {
+            return localStorage.getItem("balance");
+        }
+    };
+
     var saveUserData = function(user){
         localStorage.setItem("sessionKey", user.sessionKey);
         localStorage.setItem("nickname", user.nickname);
+        balance(user.balance);
     }
 
     var clearUserData = function () {
         localStorage.removeItem("sessionKey");
         localStorage.removeItem("nickname");
+        localStorage.removeItem("balance")
     }
 
     var loadUserData = function(){
@@ -96,7 +106,12 @@ betMania.data = (function () {
                 "X-sessionKey": getSessionKey()
             }
 
-            return betMania.requester.putJSON(this.baseUrl + "addmoney/" + ammount, {}, headers);
+            return betMania.requester
+                .putJSON(this.baseUrl + "addmoney/" + ammount, {}, headers)
+                .then(function () {
+                    var oldBalance = balance();
+                    balance(oldBalance + ammount);
+                });
         },
         getUsers: function () {
             var headers = {
@@ -118,7 +133,10 @@ betMania.data = (function () {
                 "X-sessionKey": getSessionKey()
             }
 
-            return betMania.requester.putJSON(this.baseUrl + "modify", user, headers);            
+            return betMania.requester.putJSON(this.baseUrl + "modify", user, headers)
+             .then(function () {
+                 balance(user.balance);
+             });
         }
 
     });
@@ -134,52 +152,43 @@ betMania.data = (function () {
             var headers = {
                 "X-sessionKey":""
             };
+            options = options || {};
+
             var queryStartAdded = false;
 
             var url = this.baseUrl;
-            var checkForQuery = function () {
-                if (!queryStartAdded) {
-                    url += "?"
-                    queryStartAdded = true;
-                }
-            }
-
+            
             if (options.category) {                
                 url += "?category=" + options.category + "&";
                 queryStartAdded = true;
             }
-
-            if (options.status) {
-                checkForQuery();
-                url += "status=" + options.status + "&";                
-            }
-            else {
-                checkForQuery();
-                url += "status=all&";
+            
+            if (!queryStartAdded) {
+                url += "?"
+                queryStartAdded = true;
             }
 
-            if (options.my) {
-                checkForQuery();
-                url += "my=" + true + "&";
-                headers["X-sessionKey"] = getSessionKey();
+            url += "status=" + options.status || "all" + "&";                
+                        
+            url += "my=" + options.my || "false" + "&";
+            headers["X-sessionKey"] = getSessionKey();
+           
+            url += "page=" + options.page || 0 + "&";
+           
+            url += "take=" + options.take || 10;            
+
+            return betMania.requester.getJSON(url, headers);           
+        },
+        addNew: function (match) {
+            if (!match) {
+                throw new {"message":"match is undefined!"}
             }
 
-            if (options.page) {
-                checkForQuery();
-                url += "page=" + options.page + "&";
+            var headers = {
+                "X-sessionKey": getSessionKey()
             }
 
-            if (options.take) {
-                checkForQuery();
-                url += "take=" + options.take;
-            }
-
-            return betMania.requester.getJSON(url, headers)
-            .then(function (response, status, my) {
-                debugger;
-            }, function (err) {
-                debugger;
-            });
+            return betMania.requester.postJSON(this.baseUrl, match, headers);
         }
     });
 
