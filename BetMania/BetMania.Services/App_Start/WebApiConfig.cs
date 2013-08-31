@@ -12,6 +12,7 @@ namespace BetMania.Services
     {
         public static void Register(HttpConfiguration config)
         {
+
             config.Routes.MapHttpRoute(
                 name: "BetApi",
                 routeTemplate: "api/matches/{matchId}",
@@ -25,9 +26,13 @@ namespace BetMania.Services
             );
 
             config.Routes.MapHttpRoute(
-                name: "RegisterApi",
-                routeTemplate: "api/user/{action}",
-                defaults: new { controller = "User" }
+                name: "UserApi",
+                routeTemplate: "api/user/{action}/{id}",
+                defaults: new 
+                { 
+                    controller = "User", 
+                    id = RouteParameter.Optional 
+                }
             );
 
             config.Routes.MapHttpRoute(
