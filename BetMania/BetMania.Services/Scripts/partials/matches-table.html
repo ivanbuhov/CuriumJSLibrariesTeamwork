@@ -1,4 +1,4 @@
-﻿<table class="matches" id="all-matches">
+﻿<!--<table class="matches" id="all-matches">
     <tbody>
         <tr>
             <td class="match-date">22.05.2012<br />12:30</td>
@@ -43,5 +43,19 @@
             <td class="match-result">0 : 0</td>
             <td class="match-away">Sporting Lisabon</td>
         </tr>
+    </tbody>
+</table>-->
+<table class="matches"  id="all-matches">
+    <tbody>
+        <script type="text/x-kendo-template">
+            # for(var i=0;i<model.length;i+=1) { #
+                <tr>
+                    <td class="match-date" data-bind="text: model[i].startDate"></td>
+                    <td class="match-home" data-bind="text: model[i].home">Barcelona</td>
+                    <td class="match-result" data-bind="text: model[i].homeScore">0 : 0</td>
+                    <td class="match-away" data-bind="text: model[i].away">Real Madrid</td>
+                </tr>
+              # } #
+        </script>
     </tbody>
 </table>

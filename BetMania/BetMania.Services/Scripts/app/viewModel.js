@@ -47,9 +47,51 @@ betMania.viewModels = (function () {
         balance: "none"
     });
 
+    var matchesData = new kendo.data.DataSource({
+        transport: {
+            read: {
+                url: "http://localhost:1585/api/matches",
+                dataType: "json"
+            }
+        }
+    });
+
+    var matchViewModel = kendo.observable({
+        model: new kendo.data.DataSource({
+            data: []
+        }),
+        my: false,
+        category: "football",
+        status: "finished",
+        matches: function () {
+            var data;
+            var self = this;
+
+            console.log("xdadasxdas");
+            betMania.data.matches.getMatches({
+                category: self.category,
+                status: self.status,
+                my: self.my
+            }).then(function (result) {
+                console.log(result);
+                self.model.fetch(function () {
+                    var d = this.data();
+                    d.remove();
+                    for (var i = 0; i < result.length; i++) {
+                        d.push(result[i]);
+                    }
+                });
+
+            });
+
+        }
+        
+    });
+
     return {
         loginRegisterViewModel: loginRegisterViewModel,
-        userProfileViewModel: userProfileViewModel
+        userProfileViewModel: userProfileViewModel,
+        matchViewModel: matchViewModel
     };
 }());
     

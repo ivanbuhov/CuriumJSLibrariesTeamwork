@@ -38,8 +38,8 @@ var betMania = betMania || {};
         betMania.router.route('/', function () {
             betMania.views.getMatchesTableView()
 				.then(function (matchesTableHtml) {
-				    var loginVM = betMania.viewModels.loginRegisterViewModel;
-				    var view = new kendo.View(matchesTableHtml, { model: loginVM });
+				    var matchVM = betMania.viewModels.matchViewModel;
+				    var view = new kendo.View(matchesTableHtml, { model: matchVM });
 				    layout.showIn("#page", view);
 				});
         });
