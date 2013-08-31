@@ -4,9 +4,5 @@
 <div id="profile-info">
     <span id="nickname" data-bind="text: nickname"></span>
     <span id="balance" >Balance: <span data-bind="text: balance"></span></span>
-    <script type="text/x-kendo-template">
-        # if(balance !== "none") { #
-        <a id="add-money">Add more</a>
-        # } #
-    </script>
+    <a data-bind="visible: isLogged" id="add-money">Add more</a>
 </div>

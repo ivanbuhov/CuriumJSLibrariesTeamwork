@@ -48,6 +48,10 @@ var betMania = betMania || {};
 
         // my matches default route
         betMania.router.route('/mymatches', function () {
+            if (!betMania.data.isUserLogged()) {
+                betMania.router.navigate("/login");
+            }
+
             betMania.views.getMatchesTableView()
 				.then(function (matchesTableHtml) {
 				    var matchesVM = betMania.viewModels.matchViewModel;
