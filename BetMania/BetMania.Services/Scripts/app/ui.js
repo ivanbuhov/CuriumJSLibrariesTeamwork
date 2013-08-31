@@ -12,6 +12,11 @@ betMania.ui = {
             $("#login-nav-button").show();
             $("#logout-nav-button").hide();
         }
+    },
+
+    initControls: function () {
+
     }
+    
 
 };

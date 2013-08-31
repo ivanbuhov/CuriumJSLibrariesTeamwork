@@ -45,17 +45,15 @@
         </tr>
     </tbody>
 </table>-->
-<table class="matches"  id="all-matches">
+<table class="matches"  id="all-matches" data-bind="source: matches" data-template="single-row-template">
     <tbody>
-        <script type="text/x-kendo-template">
-            # for(var i=0;i<model.length;i+=1) { #
-                <tr>
-                    <td class="match-date" data-bind="text: model[i].startDate"></td>
-                    <td class="match-home" data-bind="text: model[i].home">Barcelona</td>
-                    <td class="match-result" data-bind="text: model[i].homeScore">0 : 0</td>
-                    <td class="match-away" data-bind="text: model[i].away">Real Madrid</td>
-                </tr>
-              # } #
+        <script type="text/x-kendo-template" id="single-row-template">
+            <tr>
+                <td class="match-date" data-bind="text: startDate"></td>
+                <td class="match-home" data-bind="text: home"></td>
+                <td class="match-result" data-bind="text: homeScore"></td>
+                <td class="match-away" data-bind="text: away"></td>
+            </tr>
         </script>
     </tbody>
 </table>

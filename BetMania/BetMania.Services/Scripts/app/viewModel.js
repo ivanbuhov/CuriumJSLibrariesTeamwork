@@ -57,33 +57,26 @@ betMania.viewModels = (function () {
     });
 
     var matchViewModel = kendo.observable({
-        model: new kendo.data.DataSource({
-            data: []
-        }),
+        matches: [],
         my: false,
-        category: "football",
-        status: "finished",
-        matches: function () {
+        category: "football", // TODO : empty string
+        status: "all",
+        updateMatches: function () {
             var data;
             var self = this;
 
-            console.log("xdadasxdas");
             betMania.data.matches.getMatches({
                 category: self.category,
                 status: self.status,
                 my: self.my
             }).then(function (result) {
                 console.log(result);
-                self.model.fetch(function () {
-                    var d = this.data();
-                    d.remove();
-                    for (var i = 0; i < result.length; i++) {
-                        d.push(result[i]);
-                    }
-                });
+                self.set("matches", result);
 
+            },
+            function (errorData) {
+                console.log(errorData);
             });
-
         }
         
     });
