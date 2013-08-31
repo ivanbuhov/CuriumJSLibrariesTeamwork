@@ -26,7 +26,7 @@ namespace BetMania.Services.Controllers
         }
 
         // GET api/bets/{id}
-        public HttpResponseMessage GetBets(int id, 
+        public HttpResponseMessage GetBets(int id,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
             HttpResponseMessage response = this.ProcessOperation(() =>
@@ -37,7 +37,16 @@ namespace BetMania.Services.Controllers
                     return Request.CreateResponse(HttpStatusCode.Unauthorized, "You are not logged in.");
                 }
 
-                IQueryable<Bet> bets = this.db.Bets.Where(b => b.MatchId == id && b.UserId == user.Id);
+                IQueryable<Bet> bets;
+                if (user.IsAdmin)
+                {
+                    bets = this.db.Bets.Where(b => b.MatchId == id);
+                }
+                else
+                {
+                    bets = this.db.Bets.Where(b => b.MatchId == id && b.UserId == user.Id);
+                }
+
                 return Request.CreateResponse(HttpStatusCode.OK, this.ConvertToBetDTOs(bets));
             });
 
