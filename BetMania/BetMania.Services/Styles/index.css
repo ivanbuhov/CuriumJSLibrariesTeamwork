@@ -61,6 +61,7 @@
 
 a {
     color: #339de6;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -71,16 +72,57 @@ a {
     border-radius: 10px;
 }
 
+#login .button, #register .button {
+    display: block;
+    float:left;
+    margin: 20px 0 0 200px;
+}
+
     .button:hover {
         color: #ccc;
+        background-color: #097dcc;
+    }
+
+
+.box {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin: 10px auto 0 auto;
+    background-color: #121212;
+    overflow: auto;
+    width: 95%;
+   
+    padding: 10px 20px;
+}
+
+#login-box {
+    max-width: 800px;
+}
+
+#login-box h2 {
+        margin-top: 5px;
+    }
+
+#login, #register {
+    float: left;
+    width: 50%;
+}
+
+#login table, #register table {
+    width: 90%;
+}
+
+    #login td, #register td {
+        padding: 5px 0;
     }
 
 input {
-    background: #121212;
-    border: 1px solid #eee;
-    color: #eee;
+    width: 190px;
     padding: 5px;
+    background-color: #444;
+    border: 1px solid #eee;
     border-radius: 5px;
+    color: #fff;
 }
 
 #profile-box {
@@ -93,7 +135,7 @@ input {
         float: left;
     }
 
-#username {
+#nickname {
     float: left;
     font-size: 25px;
     display: inline-block;
@@ -160,9 +202,9 @@ input {
     list-style: none;
 }
 
-.page {
+#page {
     display: block;
-    margin: 0;
+    margin: 30px auto;
     padding: 0;
 }
 

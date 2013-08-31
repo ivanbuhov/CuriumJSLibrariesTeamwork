@@ -1,9 +1,9 @@
 ﻿/// <reference path="../libs/_references.js" />
 var betMania = betMania || {};
 
-betMania.viewsFactory = (function () {
-    var rootUrl = "Scripts/partials/";
+betMania.views = (function () {
 
+    var rootUrl = "Scripts/partials/";
     var templates = {};
 
     function getTemplate(name) {
@@ -32,12 +32,20 @@ betMania.viewsFactory = (function () {
         return getTemplate("login-register-form");
     }
 
-    function getLayoutView() {
-        return getTemplate("layout");
+    function getLayout() {
+        return getTemplate("layout")
+        .then(function (layoutHtml) {
+            return new kendo.Layout(layoutHtml);
+        });
+    }
+
+    function getMatchesTableView() {
+        return getTemplate("matches-table");
     }
 
     return {
         getLoginRegisterView: getLoginRegisterView,
-        getLayoutView: getLayoutView
+        getMatchesTableView: getMatchesTableView,
+        getLayout: getLayout
     };
 }());

@@ -4,31 +4,31 @@
         <table>
             <tr>
                 <td>Username:</td>
-                <td><input type="text" id="login-username" /></td>
+                <td><input data-bind="value: loginUsername" type="text" id="login-username" /></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type="password" id="login-password" /></td>
+                <td><input data-bind="value: loginPassword" type="password" id="login-password" /></td>
             </tr>
         </table>
-        <a id="login-button" class="button">Login</a>
+        <a id="login-button" data-bind="click: login" class="button">Login</a>
     </div>
     <div id="register">
         <h2>Register</h2>
         <table>
             <tr>
                 <td>Username:</td>
-                <td><input type="text" id="register-username" /></td>
+                <td><input data-bind="value: registerUsername" type="text" id="register-username" /></td>
             </tr>
             <tr>
                 <td>Nickname:</td>
-                <td><input type="text" id="register-nickname" /></td>
+                <td><input data-bind="value: registerNickname" type="text" id="register-nickname" /></td>
             </tr>
             <tr>
                 <td>Password:</td>
-                <td><input type="password" id="register-password" /></td>
+                <td><input data-bind="value: registerPassword" type="password" id="register-password" /></td>
             </tr>
         </table>
-        <a id="register-button" class="button">Register</a>
+        <a id="register-button" data-bind="click: register" class="button">Register</a>
     </div>
 </div>

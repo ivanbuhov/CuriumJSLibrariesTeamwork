@@ -14,3 +14,11 @@ F:\TELERIK\Term7\WebTrack\1.JS-Frameworks\TeamProject\CuriumJSLibrariesTeamwork\
 F:\TELERIK\Term7\WebTrack\1.JS-Frameworks\TeamProject\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.csprojResolveAssemblyReference.cache
 F:\TELERIK\Term7\WebTrack\1.JS-Frameworks\TeamProject\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.dll
 F:\TELERIK\Term7\WebTrack\1.JS-Frameworks\TeamProject\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.pdb
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\BetMania.Database.dll.config
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\BetMania.Database.dll
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\BetMania.Database.pdb
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\EntityFramework.dll
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\EntityFramework.xml
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.csprojResolveAssemblyReference.cache
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.dll
+C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.pdb

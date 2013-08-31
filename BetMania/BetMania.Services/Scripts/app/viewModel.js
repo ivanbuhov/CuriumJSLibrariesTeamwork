@@ -1,38 +1,26 @@
 ﻿/// <reference path="../libs/_references.js" />
 var betMania = betMania || {};
 
-betMania.viewModelFactory = (function () {
-    var data = null;
+betMania.viewModels = (function () {
 
-    function getLoginRegisterViewModel(successCallback) {
-        var viewModel = {
-            username: "DonchoMinkov",
-            password: "123456q",
-            login: function () {
-                data.users.login(this.get("username"), this.get("password"))
-					.then(function () {
-					    if (successCallback) {
-					        successCallback();
-					    }
-					});
-            },
-            register: function () {
-                data.users.register(this.get("username"), this.get("password"))
-					.then(function () {
-					    if (successCallback) {
-					        successCallback();
-					    }
-					});
-            }
-        };
-        return kendo.observable(viewModel);
-    };
+    var loginRegisterViewModel = kendo.observable({
+        loginUsername: "",
+        loginPassword: "",
+        registerUsername: "",
+        registerNickname: "",
+        registerPassword: "",
+        login: function () {
+            return betMania.data.users
+                .login(this.get("loginUsername"), this.get("loginPassword"));
+        },
+        register: function () {
+            return betMania.data.users
+                .register(this.get("registerUsername"), this.get("registerNickname"), this.get("registerPassword"));
+        }
+    });
 
     return {
-        getLoginRegisterViewModel: getLoginRegisterViewModel,
-        setPersister: function (persister) {
-            data = persister
-        }
+        loginRegisterViewModel: loginRegisterViewModel
     };
 }());
     
