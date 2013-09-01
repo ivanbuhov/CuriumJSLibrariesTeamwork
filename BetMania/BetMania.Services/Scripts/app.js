@@ -18,28 +18,24 @@ var betMania = betMania || {};
 
         // If the user is logged in
         if (betMania.data.isUserLogged()) {
-            profileBoxVM.set("nickname", betMania.data.getNickname());
-            profileBoxVM.set("balance", betMania.data.balance());
-            profileBoxVM.set("isLogged", true);
+            // set the view model
         }
         
         betMania.router = new kendo.Router({
             init: function () {
                 layout.showIn("#profile-box", profileBoxView);
-                layout.render('#application');
-                betMania.ui.toggleNavigation();
+                layout.render('#content');
             }
         });
 
-
-        // Initializes the routes
+        // Initializes the routes new kendo.Layot(html)
 
         // all matches default route
         betMania.router.route('/', function () {
             betMania.views.getMatchesTableView()
 				.then(function (matchesTableHtml) {
-				    var matchVM = betMania.viewModels.matchViewModel;
-				    var view = new kendo.View(matchesTableHtml, { model: matchVM });
+				    var loginVM = betMania.viewModels.loginRegisterViewModel;
+				    var view = new kendo.View(matchesTableHtml, { model: loginVM });
 				    layout.showIn("#page", view);
 				});
         });
@@ -70,22 +66,11 @@ var betMania = betMania || {};
 				    layout.showIn("#page", view);
 				});
             }
-
         });
 
         // logout route
         betMania.router.route('/logout', function () {
-            betMania.data.users.logout()
-            .then(function () {
-                betMania.viewModels.userProfileViewModel.set("nickname", "Anonymous");
-                betMania.viewModels.userProfileViewModel.set("balance", "none");
-                betMania.viewModels.userProfileViewModel.set("isLogged", false);
-                betMania.ui.toggleNavigation();
-                betMania.router.navigate("/");
-            },
-            function(){
-            
-            });
+            layout.showIn('#page', 'logout');
         });
 
         $(function () {
