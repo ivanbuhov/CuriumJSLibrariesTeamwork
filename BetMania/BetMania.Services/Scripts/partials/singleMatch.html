@@ -3,14 +3,18 @@
 
 <script type="text/x-kendo-template" id="single-match-template">
     <ul>
-        <li>#: home #</li>
-        <li>#: away #</li>
-        <li>#: homeScore #</li>
-        <li>#: awayScore #</li>
-        <li>#: homeCoefficient #</li>
-        <li>#: awayCoefficient #</li>
-        <li>#: drawCoefficient #</li>
-        <li>#: status #</li>
+        <li>Home - #: home #</li>
+        <li>Away - #: away #</li>
+        <li>Home score - #: homeScore #</li>
+        <li>Away score - #: awayScore #</li>
+        <li>Home coefficient - #: homeCoefficient #</li>
+        <li>Away coefficient - #: awayCoefficient #</li>
+        <li>Draw coefficient - #: drawCoefficient #</li>
+        <li>Status - 
+            #if (status == 1){ # Up-coming # } #
+            #if (status == 2){ # In-progress # } #
+            #if (status == 3){ # Finished # } #
+        </li>
     </ul>
     
     #  if(betMania.data.isUserLogged()) { #
