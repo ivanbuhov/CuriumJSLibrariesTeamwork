@@ -27,6 +27,12 @@ namespace BetMania.Services
             //);
 
             config.Routes.MapHttpRoute(
+                name: "BetTypesApi",
+                routeTemplate: "api/bets/bettypes",
+                defaults: new { controller = "Bets", action = "bettypes" }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "BetApi",
                 routeTemplate: "api/matches/bet/{matchId}",
                 defaults: new { controller = "Matches", action = "bet" }

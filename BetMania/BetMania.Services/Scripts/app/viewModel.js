@@ -20,8 +20,8 @@ betMania.viewModels = (function () {
                     betMania.router.navigate("/");
                 },
                 function (errorData) {
-                    console.log(errorData);
-                    console.log("Must show some error box."); // TODO
+                    var message = JSON.parse(errorData.responseText).message;
+                    betMania.ui.showErrorBox(message);
                 });
         },
         register: function () {
@@ -35,8 +35,8 @@ betMania.viewModels = (function () {
                     betMania.router.navigate("/");
                 },
                 function (errorData) {
-                    console.log(errorData);
-                    console.log("Must show some error box."); // TODO
+                    var message = JSON.parse(errorData.responseText).message;
+                    betMania.ui.showErrorBox(message);
                 })
         }
     });
@@ -78,8 +78,40 @@ betMania.viewModels = (function () {
 
     var singleMatchViewModel = kendo.observable({
         match: [],
-        test: "testValue"
-        //TODO bet..
+        betTypeValue: "Home",
+        coefficient: 0,
+        betAmount: 0,
+        profit: 0,
+        betTypesSource: new kendo.data.DataSource({
+            data: [],
+            transport: {
+                read: {
+                    url: "api/bets/bettypes",
+                    dataType: "json"
+                }
+            }
+        }),
+        changeBetAmount: function(ev) {
+            var amount = parseFloat(ev.currentTarget.value);
+            this.set("betAmount", amount);
+            this.updateProfit();
+        },
+        updateProfit: function () {
+            var currentBetType = this.get("betTypeValue").toLowerCase();
+            var coefficient = 0;
+            switch (currentBetType) {
+                case "home": coefficient = this.get("match[0].homeCoefficient"); break;
+                case "away": coefficient = this.get("match[0].awayCoefficient"); break;
+                case "draw": coefficient = this.get("match[0].drawCoefficient"); break;
+                default: coefficient = 0;
+            }
+            this.set("coefficient", parseFloat(coefficient));
+            console.log(coefficient);
+            this.set("profit", this.get("coefficient") * this.get("betAmount"));
+        },
+        bet: function () {
+            console.log("Bet");
+        }
     });
 
     return {

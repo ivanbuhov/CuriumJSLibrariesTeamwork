@@ -213,6 +213,18 @@ input {
     margin-top: 20px;
 }
 
+    .matches thead tr, #bet-table thead tr {
+        background-color: #111;
+    }
+
+    .matches thead tr:hover {
+        background-color: #111;
+    }
+
+    .matches th, #bet-table th {
+        padding: 5px;
+    }
+
     .matches tr {
         background-color: #323232;
         cursor: pointer;
@@ -248,6 +260,10 @@ input {
     min-width: 50px;
 }
 
+#single-match {
+    font-size: 22px;
+}
+
 .match-bet td {
     text-align: center;
 }
@@ -276,4 +292,23 @@ input {
 
 .bet-profit {
     margin-bottom: 10px;
+}
+
+#bet-table {
+    margin-top: 30px;
+}
+
+#bet-table td {
+    padding: 5px 20px;
+}
+
+.bet-message {
+    text-align: center;
+    border: 1px solid #871414;
+    color: #871414;
+    background-color: #ffd2d3;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
 }

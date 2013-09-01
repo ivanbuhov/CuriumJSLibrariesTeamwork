@@ -73,8 +73,8 @@ betMania.data = (function () {
                 authCode: CryptoJS.SHA1(username + password).toString()
             }
 
-            return betMania.requester.postJSON(this.baseUrl + "login", user).
-                then(function (result) {
+            return betMania.requester.postJSON(this.baseUrl + "login", user)
+                .then(function (result) {
                     saveUserData(result);
                     return result;
                 });

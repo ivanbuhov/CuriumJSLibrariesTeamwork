@@ -3,6 +3,30 @@ var betMania = betMania || {};
 
 betMania.ui = {
 
+    init: function () {
+        var self = this;
+        $("#error-close").on("click", function (ev) {
+            self.hideErrorBox();
+        });
+    },
+
+    showLoading: function () {
+        jLoadingImage.show();
+    },
+
+    hideLoading: function () {
+        jLoadingImage.hide();
+    },
+
+    showErrorBox: function (message) {
+        $("#error-text").text(message);
+        $("#error-container").fadeIn(400);
+    },
+
+    hideErrorBox: function () {
+        $("#error-container").fadeOut(400);
+    },
+
     toggleNavigation: function () {
         if (betMania.data.isUserLogged()) {
             $("#login-nav-button").hide();
@@ -40,6 +64,5 @@ betMania.ui = {
             },
         });
     }
-    
 
 };

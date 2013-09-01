@@ -53,12 +53,34 @@ namespace BetMania.Services.Controllers
             return response;
         }
 
+        // GET api/bets/bettypes
+        [ActionName("bettypes")]
+        public HttpResponseMessage GetBetTypes()
+        {
+            HttpResponseMessage response = this.ProcessOperation(() =>
+            {
+                var betTypes = this.ConvertToBetTypeDTOs(this.db.BetTypes).ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, betTypes);
+            });
+
+            return response;
+        }
+
         private IQueryable<BetAdditionDTO> ConvertToBetDTOs(IQueryable<Bet> bets)
         {
             return bets.Select(b => new BetAdditionDTO()
             {
                 Amount = b.Amount,
                 BetType = b.BetType.Name
+            });
+        }
+
+        private IQueryable<BetTypeDTO> ConvertToBetTypeDTOs(IQueryable<BetType> bets)
+        {
+            return bets.Select(b => new BetTypeDTO()
+            {
+                Id = b.Id,
+                Name = b.Name
             });
         }
     }

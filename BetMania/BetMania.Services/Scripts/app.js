@@ -73,7 +73,6 @@ var betMania = betMania || {};
             else {
                 // get ViewModel
                 var loginVM = betMania.viewModels.loginRegisterViewModel;
-                // get View
                 betMania.views.getLoginRegisterView()
 				.then(function (loginViewHtml) {
 				    var view = new kendo.View(loginViewHtml, { model: loginVM });
@@ -85,18 +84,19 @@ var betMania = betMania || {};
 
         // logout route
         betMania.router.route('/logout', function () {
-            betMania.data.users.logout()
-            .then(function () {
-                betMania.viewModels.userProfileViewModel.set("nickname", "Anonymous");
-                betMania.viewModels.userProfileViewModel.set("balance", "none");
-                betMania.viewModels.userProfileViewModel.set("isLogged", false);
-                betMania.ui.toggleNavigation();
+            if (!betMania.data.isUserLogged()) {
                 betMania.router.navigate("/");
-            },
-            function () {
-                betMania.ui.toggleNavigation();
-                betMania.router.navigate("/");
-            });
+            }
+            else {
+                betMania.data.users.logout()
+                .then(function () {
+                    betMania.viewModels.userProfileViewModel.set("nickname", "Anonymous");
+                    betMania.viewModels.userProfileViewModel.set("balance", "none");
+                    betMania.viewModels.userProfileViewModel.set("isLogged", false);
+                    betMania.ui.toggleNavigation();
+                    betMania.router.navigate("/");
+                });
+            }
         });
 
         betMania.router.route('/match/:id', function (id) {
@@ -111,11 +111,13 @@ var betMania = betMania || {};
             .then(function (singleMatchHtml) {
                 var view = new kendo.View(singleMatchHtml, { model: singleMatchVM });
                 layout.showIn("#page", view);
+                kendo.init($("#page"));
             });
         });
 
         $(function () {
             betMania.router.start();
+            betMania.ui.init();
         });
 
     });

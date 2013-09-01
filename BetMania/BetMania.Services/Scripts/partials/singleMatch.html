@@ -2,23 +2,65 @@
 </div>
 
 <script type="text/x-kendo-template" id="single-match-template">
-    <ul>
-        <li>Home - #: home #</li>
-        <li>Away - #: away #</li>
-        <li>Home score - #: homeScore #</li>
-        <li>Away score - #: awayScore #</li>
-        <li>Home coefficient - #: homeCoefficient #</li>
-        <li>Away coefficient - #: awayCoefficient #</li>
-        <li>Draw coefficient - #: drawCoefficient #</li>
-        <li>Status - 
-            #if (status == 1){ # Up-coming # } #
-            #if (status == 2){ # In-progress # } #
-            #if (status == 3){ # Finished # } #
-        </li>
-    </ul>
-    
-    #  if(betMania.data.isUserLogged()) { #
-        you can bet here
-    # } #
+    <table class="matches"  id="single-match">
+        <thead>
+            <th>
+                #if (status == 1){ # Up-coming # } #
+                #if (status == 2){ # In-progress # } #
+                #if (status == 3){ # Finished # } #
+            </th>
+            <th>#: home #</th>
+            <th>#: homeScore # : #: awayScore #</th>
+            <th>#: away #</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Coefficients:</td>
+                <td>Home: #: homeCoefficient #</td>
+                <td>Draw: #: drawCoefficient #</td>
+                <td>Away: #: awayCoefficient #</td>
+            </tr>
+        </tbody>
+    </table>
 
+    # if(!betMania.data.isUserLogged()) {  #
+        <div class="bet-message">If you want to bet, please log in.</div>
+    # } #
+    # if(status == 3) {  #
+        <div class="bet-message">You can't bet on this match because it is finished.</div>
+    # } #
 </script>
+
+<table id="bet-table">
+    <thead>
+        <th colspan="2">
+            Make a bet
+        </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Amount: </td>
+            <td><input style="width: 50px;" type="text" data-bind="events: { change: changeBetAmount }" /></td>
+        </tr>
+        <tr>
+            <td>Bet type: </td>
+            <td>
+                <select data-role="dropdownlist" data-text-field="name" data-value-field="name" 
+                    data-bind="source: betTypesSource, value: betTypeValue, events: { change: updateProfit }"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>Coefficient: </td>
+            <td data-bind="text: coefficient"></td>
+        </tr>
+        <tr>
+            <td>Profit: </td>
+            <td data-bind="text: profit"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a style="float: right;" class="button" data-bind="click : bet">Bet</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

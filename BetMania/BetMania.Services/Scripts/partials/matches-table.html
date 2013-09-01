@@ -10,6 +10,14 @@
 <a class="button" id="matches-update-button" data-bind="click: updateMatches">Update</a>
 
 <table class="matches"  id="all-matches" data-bind="source: matches" data-template="single-row-template">
+    <thead>
+        <tr>
+            <th>Start time</th>
+            <th>Home</th>
+            <th>Result</th>
+            <th>Away</th>
+        </tr>
+    </thead>
     <tbody>
         <script type="text/x-kendo-template" id="single-row-template">
             <tr data-id="#: id #" data-bind = "click: goToMatch">
