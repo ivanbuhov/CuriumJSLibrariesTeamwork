@@ -169,14 +169,14 @@ betMania.data = (function () {
                 queryStartAdded = true;
             }
 
-            url += "status=" + (options.status || "all") + "&";                
+            url += "status=" + options.status || "all" + "&";                
                         
-            url += "my=" + (options.my || "false") + "&";
+            url += "my=" + options.my || "false" + "&";
             headers["X-sessionKey"] = getSessionKey();
            
-            url += "page=" + (options.page || "0") + "&";
+            url += "page=" + options.page || 0 + "&";
            
-            url += "take=" + (options.take || "10");            
+            url += "take=" + options.take || 10;            
 
             return betMania.requester.getJSON(url, headers);           
         },

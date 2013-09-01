@@ -197,11 +197,9 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="index.html" />
-    <Content Include="Scripts\admin-app.js" />
-    <Content Include="Scripts\app-admin\viewModelsAdmin.js" />
-    <Content Include="Scripts\app-admin\viewsAdmin.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\app\data.js" />
+    <Content Include="Scripts\app\ui.js" />
     <Content Include="Scripts\app\viewModel.js" />
     <Content Include="Scripts\app\views.js" />
     <Content Include="Scripts\libs\class.js" />
@@ -211,8 +209,6 @@
     <Content Include="Scripts\libs\kendo.web.min.js" />
     <Content Include="Scripts\libs\rsvp.min.js" />
     <Content Include="Scripts\libs\_references.js" />
-    <Content Include="Scripts\partials\adminLayout.html" />
-    <Content Include="Scripts\partials\matches.html" />
     <Content Include="Scripts\partials\home.html" />
     <Content Include="Scripts\partials\layout.html" />
     <Content Include="Scripts\partials\login-register-form.html" />

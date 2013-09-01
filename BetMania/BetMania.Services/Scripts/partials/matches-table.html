@@ -1,4 +1,4 @@
-﻿<table class="matches" id="all-matches">
+﻿<!--<table class="matches" id="all-matches">
     <tbody>
         <tr>
             <td class="match-date">22.05.2012<br />12:30</td>
@@ -43,5 +43,17 @@
             <td class="match-result">0 : 0</td>
             <td class="match-away">Sporting Lisabon</td>
         </tr>
+    </tbody>
+</table>-->
+<table class="matches"  id="all-matches" data-bind="source: matches" data-template="single-row-template">
+    <tbody>
+        <script type="text/x-kendo-template" id="single-row-template">
+            <tr>
+                <td class="match-date" data-bind="text: startDate"></td>
+                <td class="match-home" data-bind="text: home"></td>
+                <td class="match-result" data-bind="text: homeScore"></td>
+                <td class="match-away" data-bind="text: away"></td>
+            </tr>
+        </script>
     </tbody>
 </table>
