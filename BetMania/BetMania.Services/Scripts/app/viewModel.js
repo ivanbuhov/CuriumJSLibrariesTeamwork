@@ -47,15 +47,6 @@ betMania.viewModels = (function () {
         balance: "none"
     });
 
-    var matchesData = new kendo.data.DataSource({
-        transport: {
-            read: {
-                url: "http://localhost:1585/api/matches",
-                dataType: "json"
-            }
-        }
-    });
-
     var matchViewModel = kendo.observable({
         matches: [],
         my: false,
