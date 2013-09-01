@@ -24,14 +24,10 @@ betMania = betMania || {};
 
                 return new kendo.observable({
                     matchesDataSource: data,
-                    getGrid: function () {
-                        var elem = $("#keno-grid");
-
-                        var grid = elem.kendoGrid({
-                            dataSource: this.matchesDataSource,
-                        });                        
-                    }
-                })
+                    columns: '[ "away"' +
+                            ',{"field":"home","title":"Home","width":"50px"}, ' +
+                            ' {"command": "destroy"}]'
+                });
             }, function (err) {
                 console.log(err);
             })

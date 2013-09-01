@@ -52,7 +52,9 @@ betMania = betMania || {};
                 betMania.viewModels.adminMatchesViewModel()
                     .then(function (adminVM) {
                         var matchesView = new kendo.View(matchesHTML, {model:adminVM});                       
-                        matchesView.render("#wrapper");
+                        $(function () {
+                            layout.showIn("#page", matchesView)
+                        })
                     })
             })
     });
