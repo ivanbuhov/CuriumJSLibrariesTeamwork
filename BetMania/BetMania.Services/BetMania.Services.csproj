@@ -221,6 +221,7 @@
     <Content Include="Scripts\partials\login-register-form.html" />
     <Content Include="Scripts\partials\matches-table.html" />
     <Content Include="Scripts\partials\profile-box.html" />
+    <Content Include="Scripts\partials\singleMatch.html" />
     <Content Include="Styles\admin.css" />
     <Content Include="Styles\index.css" />
     <Content Include="Styles\kendo.black.min.css" />

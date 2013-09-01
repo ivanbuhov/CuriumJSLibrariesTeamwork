@@ -98,6 +98,21 @@ var betMania = betMania || {};
             });
         });
 
+        betMania.router.route('/match/:id', function (id) {
+            var singleMatchVM = betMania.viewModels.singleMatchViewModel;
+            betMania.data.matches.getMatch(id)
+            .then(function (match) {
+                singleMatchVM.set("match", [match]);
+                return betMania.views.getSingleMatchView();
+            }, function (errorData) {
+                // TODO: fix me
+            })
+            .then(function (singleMatchHtml) {
+                var view = new kendo.View(singleMatchHtml, { model: singleMatchVM });
+                layout.showIn("#page", view);
+            });
+        });
+
         $(function () {
             betMania.router.start();
         });

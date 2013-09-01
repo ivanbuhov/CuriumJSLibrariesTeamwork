@@ -22,3 +22,11 @@ C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\Be
 C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.csprojResolveAssemblyReference.cache
 C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.dll
 C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.pdb
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\BetMania.Database.dll.config
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\BetMania.Database.dll
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\BetMania.Database.pdb
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\EntityFramework.dll
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\bin\Debug\EntityFramework.xml
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.csprojResolveAssemblyReference.cache
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.dll
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Database\obj\Debug\BetMania.Database.pdb

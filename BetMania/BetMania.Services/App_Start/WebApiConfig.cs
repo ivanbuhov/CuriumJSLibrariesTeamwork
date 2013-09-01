@@ -12,10 +12,24 @@ namespace BetMania.Services
     {
         public static void Register(HttpConfiguration config)
         {
+           
+
+           //config.Routes.MapHttpRoute(
+           //     name: "BetApi",
+           //     routeTemplate: "api/matches/{}",
+           //     defaults: new { controller = "Matches", action = "getmatchbyid" }
+           // );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "BetApi",
+            //    routeTemplate: "api/matches/{matchId}",
+            //    defaults: new { controller = "Matches" }
+            //);
+
             config.Routes.MapHttpRoute(
                 name: "BetApi",
-                routeTemplate: "api/matches/{matchId}",
-                defaults: new { controller = "Matches" }
+                routeTemplate: "api/matches/bet/{matchId}",
+                defaults: new { controller = "Matches", action = "bet" }
             );
 
             config.Routes.MapHttpRoute(

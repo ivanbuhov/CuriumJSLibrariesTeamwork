@@ -47,10 +47,15 @@ betMania.views = (function () {
         return getTemplate("profile-box");
     }
 
+    function getSingleMatchView() {
+        return getTemplate("singleMatch");
+    }
+
     return {
         getLayout: getLayout,
         getLoginRegisterView: getLoginRegisterView,
         getMatchesTableView: getMatchesTableView,
-        getProfileBoxView: getProfileBoxView
+        getProfileBoxView: getProfileBoxView,
+        getSingleMatchView : getSingleMatchView
     };
 }());

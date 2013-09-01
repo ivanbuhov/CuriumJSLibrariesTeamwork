@@ -13,3 +13,8 @@ C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\Be
 C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\obj\Debug\BetMania.Client.csprojResolveAssemblyReference.cache
 C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\obj\Debug\BetMania.Client.dll
 C:\Users\Buhov\Desktop\JSlibrariesTeamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\obj\Debug\BetMania.Client.pdb
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\bin\BetMania.Client.dll
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\bin\BetMania.Client.pdb
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\obj\Debug\BetMania.Client.csprojResolveAssemblyReference.cache
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\obj\Debug\BetMania.Client.dll
+C:\Users\academy\Desktop\teamwork\CuriumJSLibrariesTeamwork\BetMania\BetMania.Client\obj\Debug\BetMania.Client.pdb
