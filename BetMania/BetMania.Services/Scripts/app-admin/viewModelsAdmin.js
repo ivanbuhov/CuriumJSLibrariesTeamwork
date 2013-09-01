@@ -1,16 +1,44 @@
 ﻿/// <reference path="../libs/_references.js" />
 
-betmania = betmania || {};
+betMania = betMania || {};
 
 (function () {
-    betmania.viewModels.adminView = function () {
+    betMania.viewModels.adminViewModel = function () {
         return new kendo.observable({
-            getAllUsers: function () {
-
+            testAdminViewModel:1,
+            getAllUsers: function (msg) {
+                alert(msg + " getting users");
             }
-
-        })
+        });
     }
 
+    betMania.viewModels.adminMatchesViewModel = function () {
+        return betMania.data.matches.getMatches()
+            .then(function (result) {
+                var data = new kendo.data.DataSource({
+                    data: result,
+                    schema: {
+                        model: { id: "id" }
+                    }
+                });
 
+                return new kendo.observable({
+                    matchesDataSource: data,
+                    getGrid: function () {
+                        var elem = $("#keno-grid");
+
+                        var grid = elem.kendoGrid({
+                            dataSource: this.matchesDataSource,
+                        });                        
+                    }
+                })
+            }, function (err) {
+                console.log(err);
+            })
+    }
+
+    //return {
+    //    adminViewModel: adminViewModel,
+    //    adminMatchesViewModel: adminMatchesViewModel
+    //}
 }());
