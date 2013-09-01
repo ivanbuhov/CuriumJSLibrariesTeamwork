@@ -24,10 +24,9 @@ var betMania = betMania || {};
         betMania.router = new kendo.Router({
             init: function () {
                 layout.showIn("#profile-box", profileBoxView);
-                layout.render('#application');
+                layout.render('#content');
             }
         });
-
 
         // Initializes the routes
 
@@ -67,7 +66,6 @@ var betMania = betMania || {};
 				    layout.showIn("#page", view);
 				});
             }
-
         });
 
         // logout route
