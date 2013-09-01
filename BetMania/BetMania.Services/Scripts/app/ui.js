@@ -7,10 +7,12 @@ betMania.ui = {
         if (betMania.data.isUserLogged()) {
             $("#login-nav-button").hide();
             $("#logout-nav-button").show();
+            $("#mymatches-nav-button").show();
         }
         else {
             $("#login-nav-button").show();
             $("#logout-nav-button").hide();
+            $("#mymatches-nav-button").hide();
         }
     },
 

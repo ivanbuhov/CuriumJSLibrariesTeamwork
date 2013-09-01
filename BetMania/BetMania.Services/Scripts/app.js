@@ -94,7 +94,8 @@ var betMania = betMania || {};
                 betMania.router.navigate("/");
             },
             function () {
-
+                betMania.ui.toggleNavigation();
+                betMania.router.navigate("/");
             });
         });
 
