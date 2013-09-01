@@ -180,6 +180,12 @@ betMania.data = (function () {
 
             return betMania.requester.getJSON(url, headers);           
         },
+
+        getMatch: function (id) {
+            var url = this.baseUrl + id;
+            return betMania.requester.getJSON(url);
+        },
+
         addNew: function (match) {
             if (!match) {
                 throw new {"message":"match is undefined!"}

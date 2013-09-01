@@ -68,14 +68,25 @@ betMania.viewModels = (function () {
             function (errorData) {
                 console.log(errorData);
             });
+        },
+        goToMatch: function (ev) {
+            var id = $(ev.delegateTarget).data("id");
+            betMania.router.navigate("/match/" + id);
         }
         
+    });
+
+    var singleMatchViewModel = kendo.observable({
+        match: [],
+        test: "testValue"
+        //TODO bet..
     });
 
     return {
         loginRegisterViewModel: loginRegisterViewModel,
         userProfileViewModel: userProfileViewModel,
-        matchViewModel: matchViewModel
+        matchViewModel: matchViewModel,
+        singleMatchViewModel: singleMatchViewModel
     };
 }());
     

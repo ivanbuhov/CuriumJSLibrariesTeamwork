@@ -12,7 +12,7 @@
 <table class="matches"  id="all-matches" data-bind="source: matches" data-template="single-row-template">
     <tbody>
         <script type="text/x-kendo-template" id="single-row-template">
-            <tr>
+            <tr data-id="#: id #" data-bind = "click: goToMatch">
                 <td class="match-date">#: startTime #</td>
                 <td class="match-home">#: home #</td>
                 <td class="match-result" >#: homeScore # : #: awayScore #</td>

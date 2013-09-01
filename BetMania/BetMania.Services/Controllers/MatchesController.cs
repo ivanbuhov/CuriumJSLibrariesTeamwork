@@ -67,33 +67,29 @@ namespace BetMania.Services.Controllers
             return response;
         }
 
-        // POST api/matches
-        public HttpResponseMessage PostMatch([ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey, 
-            MatchAdditionDTO match)
+        // GET api/matches/{id}
+        public HttpResponseMessage GetMatch(int id)
         {
             HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
             {
-                User user = this.db.Users.Where(u => u.SessionKey == sessionKey).FirstOrDefault();
-                if (user == null || user.IsAdmin == false)
+                Match dbModel = this.db.Matches.Find(id);
+                if (dbModel == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "You have to be administrator to add a new match.");
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No match found.");
                 }
+                MatchDTO match = this.ConvertToMatchDTO(dbModel);
 
-                Match dbModel = this.ConvertToMatch(match);
-                this.db.Matches.Add(dbModel);
-                this.db.SaveChanges();
-
-                HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.Created, match);
-                message.Headers.Location = new Uri(Url.Link("DefaultApi", new { controller = "Match", id = dbModel.Id }));
+                HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.OK, match);
                 return message;
             });
 
             return response;
         }
 
-        // POST api/matches/{id}
+        // POST api/matches/bet/{id}
         [HttpPost]
-        public HttpResponseMessage Bet(int matchId, BetAdditionDTO bet, 
+        [ActionName("bet")]
+        public HttpResponseMessage PostBet(int matchId, BetAdditionDTO bet,
             [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
         {
             HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
@@ -121,7 +117,7 @@ namespace BetMania.Services.Controllers
                 if (match.IsFinished || match.StartTime < DateTime.Now.AddMinutes(MinutesBeforeTheMatchBetsToBeClosed))
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, String.Format(
-                        "Sorry! You can bet on matches earlier than {0} minutes before the start of the game.", 
+                        "Sorry! You can bet on matches earlier than {0} minutes before the start of the game.",
                         MinutesBeforeTheMatchBetsToBeClosed));
                 }
 
@@ -143,6 +139,30 @@ namespace BetMania.Services.Controllers
             return response;
         }
 
+        // POST api/matches
+        public HttpResponseMessage PostMatch([ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey,
+            MatchAdditionDTO match)
+        {
+            HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+            {
+                User user = this.db.Users.Where(u => u.SessionKey == sessionKey).FirstOrDefault();
+                if (user == null || user.IsAdmin == false)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "You have to be administrator to add a new match.");
+                }
+
+                Match dbModel = this.ConvertToMatch(match);
+                this.db.Matches.Add(dbModel);
+                this.db.SaveChanges();
+
+                HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.Created, match);
+                message.Headers.Location = new Uri(Url.Link("DefaultApi", new { controller = "Match", id = dbModel.Id }));
+                return message;
+            });
+
+            return response;
+        }
+
         private IQueryable<MatchDTO> ConvertToMatchDTOs(IQueryable<Match> matches)
         {
             return matches.Select(match => new MatchDTO()
@@ -157,7 +177,7 @@ namespace BetMania.Services.Controllers
                 AwayScore = match.AwayScore,
                 Category = match.Category.Name,
                 StartTime = match.StartTime,
-                Status = (match.IsFinished) ? MatchStatusQuery.Finished : 
+                Status = (match.IsFinished) ? MatchStatusQuery.Finished :
                 ((DateTime.Now > match.StartTime) ? MatchStatusQuery.InProgress : MatchStatusQuery.Upcoming)
             });
         }
@@ -185,7 +205,7 @@ namespace BetMania.Services.Controllers
         {
             return new Match()
             {
-                Id  = 0,
+                Id = 0,
                 Home = match.Home,
                 Away = match.Away,
                 HomeCoefficient = match.HomeCoefficient,
