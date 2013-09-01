@@ -14,8 +14,29 @@ betMania.ui = {
         }
     },
 
-    initControls: function () {
-
+    initAllMatchesControls: function () {
+        $("#matches-type-select").kendoDropDownList({
+            change: function (ev) {
+                // change the view model
+                betMania.viewModels.matchViewModel.set("status", $("#matches-type-select").val());
+            }
+        });
+        $("#matches-category-select").kendoDropDownList({
+            dataTextField: "name",
+            dataValueField: "name",
+            change: function (ev) {
+                // change the view model
+                betMania.viewModels.matchViewModel.set("category", $("#matches-category-select").val());
+            },
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/api/categories",
+                    }
+                }
+            },
+        });
     }
     
 

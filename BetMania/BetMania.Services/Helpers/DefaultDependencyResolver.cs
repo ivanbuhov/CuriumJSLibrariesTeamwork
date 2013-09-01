@@ -29,6 +29,10 @@ namespace BetMania.Services.Helpers
             {
                 return new BetsController(new BetManiaContext());
             }
+            else if (serviceType == typeof(CategoriesController))
+            {
+                return new CategoriesController(new BetManiaContext());
+            }
 
             return null;
         }

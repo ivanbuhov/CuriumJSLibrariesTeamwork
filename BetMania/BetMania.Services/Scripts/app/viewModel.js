@@ -60,7 +60,7 @@ betMania.viewModels = (function () {
         matches: [],
         my: false,
         category: "football", // TODO : empty string
-        status: "all",
+        status: "0",
         updateMatches: function () {
             var data;
             var self = this;

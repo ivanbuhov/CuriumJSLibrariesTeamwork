@@ -210,6 +210,7 @@ input {
 
 .matches {
     width: 100%;
+    margin-top: 20px;
 }
 
     .matches tr {
@@ -233,8 +234,13 @@ input {
 }
 
 .match-home {
-    width: 40%;
+    width: 35%;
     text-align: right;
+}
+
+.match-away {
+    width: 35%;
+    text-align: left;
 }
 
 .match-result {
@@ -249,11 +255,6 @@ input {
     .match-bet td:hover {
         background-color: #323232;
     }
-
-.match-away {
-    width: 40%;
-    text-align: left;
-}
 
 .bet-amount {
     display: inline-block;

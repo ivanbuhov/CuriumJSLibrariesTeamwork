@@ -18,15 +18,19 @@ var betMania = betMania || {};
 
         // If the user is logged in
         if (betMania.data.isUserLogged()) {
-            // set the view model
+            profileBoxVM.set("nickname", betMania.data.getNickname());
+            profileBoxVM.set("balance", betMania.data.balance());
+            profileBoxVM.set("isLogged", true);
         }
-        
+
         betMania.router = new kendo.Router({
             init: function () {
                 layout.showIn("#profile-box", profileBoxView);
-                layout.render('#content');
+                layout.render('#application');
+                betMania.ui.toggleNavigation();
             }
         });
+
 
         // Initializes the routes
 
@@ -34,19 +38,29 @@ var betMania = betMania || {};
         betMania.router.route('/', function () {
             betMania.views.getMatchesTableView()
 				.then(function (matchesTableHtml) {
-				    var loginVM = betMania.viewModels.loginRegisterViewModel;
-				    var view = new kendo.View(matchesTableHtml, { model: loginVM });
+				    var matchesVM = betMania.viewModels.matchViewModel;
+				    matchesVM.set("my", false);
+				    matchesVM.updateMatches();
+				    var view = new kendo.View(matchesTableHtml, { model: matchesVM });
 				    layout.showIn("#page", view);
+				    betMania.ui.initAllMatchesControls();
 				});
         });
 
         // my matches default route
         betMania.router.route('/mymatches', function () {
+            if (!betMania.data.isUserLogged()) {
+                betMania.router.navigate("/login");
+            }
+
             betMania.views.getMatchesTableView()
 				.then(function (matchesTableHtml) {
-				    var loginVM = betMania.viewModels.loginRegisterViewModel;
-				    var view = new kendo.View(matchesTableHtml, { model: loginVM });
+				    var matchesVM = betMania.viewModels.matchViewModel;
+				    matchesVM.set("my", true);
+				    matchesVM.updateMatches();
+				    var view = new kendo.View(matchesTableHtml, { model: matchesVM });
 				    layout.showIn("#page", view);
+				    betMania.ui.initAllMatchesControls();
 				});
         });
 
@@ -66,11 +80,22 @@ var betMania = betMania || {};
 				    layout.showIn("#page", view);
 				});
             }
+
         });
 
         // logout route
         betMania.router.route('/logout', function () {
-            layout.showIn('#page', 'logout');
+            betMania.data.users.logout()
+            .then(function () {
+                betMania.viewModels.userProfileViewModel.set("nickname", "Anonymous");
+                betMania.viewModels.userProfileViewModel.set("balance", "none");
+                betMania.viewModels.userProfileViewModel.set("isLogged", false);
+                betMania.ui.toggleNavigation();
+                betMania.router.navigate("/");
+            },
+            function () {
+
+            });
         });
 
         $(function () {

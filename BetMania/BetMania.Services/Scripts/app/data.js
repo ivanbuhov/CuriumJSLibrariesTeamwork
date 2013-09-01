@@ -169,7 +169,7 @@ betMania.data = (function () {
                 queryStartAdded = true;
             }
 
-            url += "status=" + (options.status || "all") + "&";                
+            url += "status=" + (options.status || "0") + "&";                
                         
             url += "my=" + (options.my || "false") + "&";
             headers["X-sessionKey"] = getSessionKey();
