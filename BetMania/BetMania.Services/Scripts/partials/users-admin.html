@@ -1,0 +1,37 @@
+﻿<table class="matches" id="all-users" data-bind="source: users" data-template="single-row-template">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Nickname</th>            
+            <th>Balance</th>
+            <th>Avatar</th>
+            <th>IsAdmin?</th>
+            <th>Session Key</th>            
+            <th>Authorization Code (SHA1)</th>
+            <th></th>
+        </tr>
+    </thead>    
+    <tbody>
+        <script type="text/x-kendo-template" id="single-row-template">
+            <tr>
+                <td data-bind="text: username"></td>                
+                <td data-bind="text: nickname"></td>
+                <td data-bind="text: balance"></td>          
+                <td><img class="avatar" src= " #= avatar # "/></td>     
+                <td data-bind="text: isAdmin"></td>
+                <td data-bind="text: sessionKey"></td>
+                <td data-bind="text: authCode"></td> 
+                <td>
+                    <button data-id="#: id #" data-bind="click:editUser">Edit</button>
+                    <button data-id="#: id #" data-bind="click:deleteUser">Delete</button>
+                </td>  
+                             
+            </tr>
+        </script>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="8"><button data-bind="click:create">Create User</button></td>
+        </tr>
+    </tfoot>
+</table>

@@ -34,16 +34,20 @@ betMania = betMania || {};
         }
     });
 
-    //betMania.views.admin.getMain().then(function (layout) {
-    //    layout = layout
-    //})
-
-    //betMania.router.route("/admin", function () {
-    //   layout.showIn("#page","<h1>Main Layout page</h1>")
-    //});
-
     betMania.router.route("/admin/addMatch", function () {
 
+    });
+
+    betMania.router.route("/admin/matches/:id", function (id) {
+        betMania.views.admin.getSingleMatchView()
+            .then(function (singleMatchHTML) {
+                var singleMatchVM = betMania.viewModels.singleMatchAdminVM;
+
+                var singleMatchView = new kendo.View(singleMatchHTML, { model: singleMatchVM });
+
+                layout.showIn("#page", singleMatchView);
+
+            });
     });
 
     betMania.router.route("/admin/matches", function () {
@@ -62,11 +66,27 @@ betMania = betMania || {};
     });
 
     betMania.router.route("/admin/users", function () {
+        betMania.views.admin.getUsersAdminView()
+            .then(function (usersHTML) {
+                var usersVM = betMania.viewModels.usersAdminVM();
+                var usersView = new kendo.View(usersHTML, { model: usersVM });
+
+                usersVM.getUsers();
+                layout.showIn("#page", usersView);
+            })
 
     })
 
-    betMania.router.route("/admin/modifyUser/:id", function (id) {
+    betMania.router.route("/admin/users/:id", function (id) {
+        betMania.views.admin.getSingleUserView()
+           .then(function (singleUserHtml) {
+               var singleMatchVM = betMania.viewModels.singleUserAdminVM;
 
+               var singleMatchView = new kendo.View(singleUserHtml, { model: singleMatchVM });
+
+               layout.showIn("#page", singleMatchView);
+
+           });
     });
 
     betMania.router.route("/admin/deleteUser/:id", function (id) {

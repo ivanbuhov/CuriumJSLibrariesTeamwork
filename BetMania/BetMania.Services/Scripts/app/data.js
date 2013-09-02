@@ -122,6 +122,13 @@ betMania.data = (function () {
             return betMania.requester.getJSON(this.baseUrl + "getusers/", headers)
             
         },
+        getUser: function (id) {
+            var headers = {
+                "X-sessionKey": getSessionKey()
+            }
+
+            return betMania.requester.getJSON(this.baseUrl + "getuserbyid/" + id, headers);
+        },
         deleteUser: function (userId) {
             var headers = {
                 "X-sessionKey": getSessionKey()

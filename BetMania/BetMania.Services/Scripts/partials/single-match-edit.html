@@ -1,0 +1,47 @@
+﻿<table>
+    <thead>
+        <tr>
+            <th>Start Time</th>
+            <th>Home Team</th>
+            <th>Home Res</th>
+            <th>1</th>
+            <th>X</th>
+            <th>2</th>
+            <th>Away Team</th>
+            <th>Result</th>
+            <th></th>
+        </tr>
+    </thead>  
+    <tbody>            
+        <tr>
+            <td class="match-date" >
+                <input type="datetime" data-bind="value: startTime" />
+            </td>
+            <td class="match-home">
+                <input type="text" data-bind="value: home" />
+            </td>
+            <td class="wide-cell">
+                <input class="number-input inline" type="number" data-bind="value:homeScore" />
+            </td>
+            <td >
+                <input class="number-input" type="number" data-bind="value:homeCoefficient" />
+            </td>
+            <td>
+                <input class="number-input"  type="number" data-bind="value:drawCoefficient" />
+            </td>
+            <td>
+                <input class="number-input" type="number" data-bind="value:awayCoefficient" />
+            </td>
+                
+            <td class="match-away">
+                <input type="text" data-bind="value: away" />
+            </td>
+            <td class="wide-cell">
+                <input class="number-input inline" type="number" data-bind="value:awayScore" />
+            </td>
+            <td>
+                <button data-bind="click:update">Update</button>
+            </td>
+        </tr>           
+    </tbody>
+</table>

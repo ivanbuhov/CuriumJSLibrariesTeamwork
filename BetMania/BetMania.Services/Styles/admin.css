@@ -276,3 +276,24 @@ input {
 .bet-profit {
     margin-bottom: 10px;
 }
+
+.number-input{
+    width:50px;
+}
+.wide-cell{
+    width:300px;
+}
+
+.inline{
+    display:inline;
+}
+
+#all-users{
+    position:relative;
+    left:-20%;
+}
+
+.avatar{
+    width:50px;
+    height:50px;
+}

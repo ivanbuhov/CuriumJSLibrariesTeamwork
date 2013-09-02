@@ -23,7 +23,7 @@
                     <span data-bind="text: homeScore" /> : <span data-bind="text: awayScore" />
                 </td>
                 <td class="match-away" data-bind="text: away"></td>
-                <!--<td><button data-bind="click:editMatch('id')">Edit</button></td>-->
+                <td><button data-id="#: id #" data-bind="click:editMatch">Edit</button></td>
             </tr>
         </script>
     </tbody>
