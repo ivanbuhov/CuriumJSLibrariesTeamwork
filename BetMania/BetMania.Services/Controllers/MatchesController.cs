@@ -176,6 +176,85 @@ namespace BetMania.Services.Controllers
             return response;
         }
 
+        // PUT api/matches/{id}
+        public HttpResponseMessage PutMatch(int id, MatchAdditionDTO match, 
+            [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey)
+        {
+            HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
+            {
+                User user = this.db.Users.Where(u => u.SessionKey == sessionKey).FirstOrDefault();
+                if (user == null || user.IsAdmin == false)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "You have to be administrator to  edit match.");
+                }
+
+                Match originalMatch = this.db.Matches.Include("Bets").Include("Bets.BetType").Include("Bets.User").Where(m => m.Id == id).FirstOrDefault();
+                if (originalMatch == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "No match found.");
+                }
+
+                Match updatedMatch = this.ConvertToMatch(match);
+                bool haveToCalculateBets = (originalMatch.IsFinished == false && updatedMatch.IsFinished == true);
+                this.Update(originalMatch, updatedMatch);
+                this.db.SaveChanges();
+
+                if (haveToCalculateBets)
+                {
+                    if (originalMatch.HomeScore > originalMatch.AwayScore)
+                    {
+                        foreach (Bet bet in originalMatch.Bets)
+                        {
+                            if (bet.BetType.Name.ToLower() == "home")
+                            {
+                                bet.User.Balance += (decimal)originalMatch.HomeCoefficient * bet.Amount;
+                            }
+                        }
+                    }
+                    else if (originalMatch.HomeScore < originalMatch.AwayScore)
+                    {
+                        foreach (Bet bet in originalMatch.Bets)
+                        {
+                            if (bet.BetType.Name.ToLower() == "away")
+                            {
+                                bet.User.Balance += (decimal)originalMatch.AwayScore * bet.Amount;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (Bet bet in originalMatch.Bets)
+                        {
+                            if (bet.BetType.Name.ToLower() == "draw")
+                            {
+                                bet.User.Balance += (decimal)originalMatch.DrawCoefficient * bet.Amount;
+                            }
+                        }
+                    }
+
+                    this.db.SaveChanges();
+                }
+
+                HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.OK, this.ConvertToMatchDTO(originalMatch));
+                return message;
+            });
+
+            return response;
+        }
+
+        private void Update(Match originalMatch, Match updatedMatch)
+        {
+            originalMatch.Home = updatedMatch.Home;
+            originalMatch.Away = updatedMatch.Away;
+            originalMatch.HomeScore = updatedMatch.HomeScore;
+            originalMatch.AwayScore = updatedMatch.AwayScore;
+            originalMatch.HomeCoefficient = updatedMatch.HomeCoefficient;
+            originalMatch.AwayCoefficient = updatedMatch.AwayCoefficient;
+            originalMatch.DrawCoefficient = updatedMatch.DrawCoefficient;
+            originalMatch.StartTime = updatedMatch.StartTime;
+            originalMatch.IsFinished = updatedMatch.IsFinished;
+        }
+
         private IQueryable<MatchDTO> ConvertToMatchDTOs(IQueryable<Match> matches)
         {
             return matches.Select(match => new MatchDTO()
