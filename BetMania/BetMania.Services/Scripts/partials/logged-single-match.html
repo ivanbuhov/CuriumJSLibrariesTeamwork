@@ -2,14 +2,16 @@
 </div>
 
 <script type="text/x-kendo-template" id="single-match-template">
-    <table class="matches"  id="single-match">
+    <table class="matches" id="single-match">
         <thead>
-            <th style="font-size: 14px;">
-                #: startTime #
-            </th>
-            <th>#: home #</th>
-            <th>#: homeScore # : #: awayScore #</th>
-            <th>#: away #</th>
+            <tr>
+                <th style="font-size: 14px;">
+                    #: startTime #
+                </th>
+                <th>#: home #</th>
+                <th>#: homeScore # : #: awayScore #</th>
+                <th>#: away #</th>
+            </tr>
         </thead>
         <tbody>
             <tr>
@@ -24,20 +26,13 @@
             </tr>
         </tbody>
     </table>
-
-    # if(!betMania.data.isUserLogged()) {  #
-        <div class="bet-message">If you want to bet, please log in.</div>
-    # } #
-    # if(status == 3) {  #
-        <div class="bet-message">You can't bet on this match because it is finished.</div>
-    # } #
 </script>
 
-<table id="bet-table">
+<table id="bet-table" style="width: 45%; float: left;">
     <thead>
-        <th colspan="2">
-            Make a bet
-        </th>
+        <tr>
+            <th colspan="2">Make a bet</th>
+        </tr>
     </thead>
     <tbody>
         <tr>
@@ -61,8 +56,26 @@
         </tr>
         <tr>
             <td colspan="2">
-                <a style="float: right;" class="button" data-bind="click : bet">Bet</a>
+                <a style="float: right;" class="button" data-bind="click: bet">Bet</a>
             </td>
         </tr>
     </tbody>
 </table>
+
+<table class="matches" style="width: 46%; float: right;">
+    <thead>
+        <tr>
+            <th>Amount</th>
+            <th>Bet types</th>
+        </tr>
+    </thead>
+    <tbody data-template="single-bet-row-template" data-bind="source: match[0].bets">
+    </tbody>
+</table>
+
+<script type="text/x-kendo-template" id="single-bet-row-template">
+    <tr>
+        <td>#: amount #</td>
+        <td>#: betType #</td>
+    </tr>
+</script>

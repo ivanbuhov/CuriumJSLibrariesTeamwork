@@ -91,7 +91,7 @@ betMania.viewModels = (function () {
                 }
             }
         }),
-        changeBetAmount: function(ev) {
+        changeBetAmount: function (ev) {
             var amount = parseFloat(ev.currentTarget.value);
             this.set("betAmount", amount);
             this.updateProfit();

@@ -68,7 +68,7 @@ namespace BetMania.Services.Controllers
         }
 
         // GET api/matches/{id}
-        public HttpResponseMessage GetMatch(int id)
+        public HttpResponseMessage GetMatch(int id, [ValueProvider(typeof(HeaderValueProviderFactory<string>))] string sessionKey = null)
         {
             HttpResponseMessage response = this.ProcessOperation<HttpResponseMessage>(() =>
             {
@@ -77,9 +77,22 @@ namespace BetMania.Services.Controllers
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No match found.");
                 }
-                MatchDTO match = this.ConvertToMatchDTO(dbModel);
 
-                HttpResponseMessage message = Request.CreateResponse(HttpStatusCode.OK, match);
+                HttpResponseMessage message;
+                if (sessionKey != null)
+                {
+                    User user = this.db.Users.Where(u => u.SessionKey == sessionKey).FirstOrDefault();
+                    if (user != null)
+                    {
+                        MatchWithBetsDTO match = this.ConvertToMatchWithBetsDTO(dbModel, user.Id);
+                        message = Request.CreateResponse(HttpStatusCode.OK, match);
+                        return message;
+                    }
+                }
+
+                // else
+                MatchDTO matchWithoutBets = this.ConvertToMatchDTO(dbModel);
+                message = Request.CreateResponse(HttpStatusCode.OK, matchWithoutBets);
                 return message;
             });
 
@@ -198,6 +211,31 @@ namespace BetMania.Services.Controllers
                 StartTime = match.StartTime,
                 Status = (match.IsFinished) ? MatchStatusQuery.Finished :
                 ((DateTime.Now > match.StartTime) ? MatchStatusQuery.InProgress : MatchStatusQuery.Upcoming)
+            };
+        }
+
+        private MatchWithBetsDTO ConvertToMatchWithBetsDTO(Match match, int userId)
+        {
+            return new MatchWithBetsDTO()
+            {
+                Id = match.Id,
+                Home = match.Home,
+                Away = match.Away,
+                HomeCoefficient = match.HomeCoefficient,
+                DrawCoefficient = match.DrawCoefficient,
+                AwayCoefficient = match.AwayCoefficient,
+                HomeScore = match.HomeScore,
+                AwayScore = match.AwayScore,
+                Category = match.Category.Name,
+                StartTime = match.StartTime,
+                Status = (match.IsFinished) ? MatchStatusQuery.Finished :
+                ((DateTime.Now > match.StartTime) ? MatchStatusQuery.InProgress : MatchStatusQuery.Upcoming),
+                Bets = match.Bets.Where(b => b.UserId == userId).Select(b => new BetDTO
+                {
+                    Id = b.Id,
+                    Amount = b.Amount,
+                    BetType = b.BetType.Name
+                })
             };
         }
 

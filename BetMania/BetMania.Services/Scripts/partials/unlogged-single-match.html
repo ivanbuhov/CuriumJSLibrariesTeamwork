@@ -1,0 +1,35 @@
+﻿<div data-template="single-match-template" data-bind="source: match">
+</div>
+
+<script type="text/x-kendo-template" id="single-match-template">
+    <table class="matches" id="single-match">
+        <thead>
+            <tr>
+                <th style="font-size: 14px;">
+                    #: startTime #
+                </th>
+                <th>#: home #</th>
+                <th>#: homeScore # : #: awayScore #</th>
+                <th>#: away #</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    #if (status == 1){ # Up-coming # } #
+                    #if (status == 2){ # In-progress # } #
+                    #if (status == 3){ # Finished # } #
+                </td>
+                <td>Home: #: homeCoefficient #</td>
+                <td>Draw: #: drawCoefficient #</td>
+                <td>Away: #: awayCoefficient #</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="bet-message">If you want to bet, please log in.</div>
+
+    # if(status == 3) {  #
+        <div class="bet-message">You can't bet on this match because it is finished.</div>
+    # } #
+</script>

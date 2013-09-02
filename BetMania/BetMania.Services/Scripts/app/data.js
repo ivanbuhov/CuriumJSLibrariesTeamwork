@@ -182,8 +182,11 @@ betMania.data = (function () {
         },
 
         getMatch: function (id) {
+            var headers = {
+                "X-sessionKey": getSessionKey() || " "
+            }
             var url = this.baseUrl + id;
-            return betMania.requester.getJSON(url);
+            return betMania.requester.getJSON(url, headers);
         },
 
         addNew: function (match) {
