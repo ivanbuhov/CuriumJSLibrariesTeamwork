@@ -49,13 +49,15 @@ betMania = betMania || {};
     betMania.router.route("/admin/matches", function () {
         betMania.views.admin.getMatchesView()
             .then(function (matchesHTML) {
-                betMania.viewModels.adminMatchesViewModel()
-                    .then(function (adminVM) {
-                        var matchesView = new kendo.View(matchesHTML, {model:adminVM});                       
-                        $(function () {
-                            layout.showIn("#page", matchesView)
-                        })
-                    })
+                var adminVM = betMania.viewModels.adminMatchesViewModel()
+                    //.then(function (adminVM) {
+                var matchesView = new kendo.View(matchesHTML, { model: adminVM });
+                adminVM.updateMatches()
+                $(function () {
+                    layout.showIn("#page", matchesView);
+                    adminVM.getKendoGrid("#kendo-grid");
+                })
+                    //})
             })
     });
 
