@@ -196,7 +196,26 @@ betMania.data = (function () {
             }
 
             return betMania.requester.postJSON(this.baseUrl, match, headers);
-        }
+        },
+
+        bet: function (matchId, amount, betType) {
+            var headers = {
+                "X-sessionKey": getSessionKey()
+            }
+
+            var betModel = {
+                "amount": amount,
+                "betType": betType
+            }
+
+            return betMania.requester
+                .postJSON(this.baseUrl + "bet/" + matchId, betModel, headers)
+                .then(function (betModel) {
+                    var oldBalance = balance();
+                    balance(oldBalance - betModel.ammount);
+                    return betModel;
+                });
+        },
     });
 
     return new DataPersister("/api"); 
