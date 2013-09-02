@@ -21,8 +21,17 @@
                 <td data-bind="text: isAdmin"></td>
                 <td data-bind="text: sessionKey"></td>
                 <td data-bind="text: authCode"></td> 
-                <td><button data-id="#: id #" data-bind="click:editUser">Edit</button></td>               
+                <td>
+                    <button data-id="#: id #" data-bind="click:editUser">Edit</button>
+                    <button data-id="#: id #" data-bind="click:deleteUser">Delete</button>
+                </td>  
+                             
             </tr>
         </script>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="8"><button data-bind="click:create">Create User</button></td>
+        </tr>
+    </tfoot>
 </table>
