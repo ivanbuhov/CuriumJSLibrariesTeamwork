@@ -44,7 +44,23 @@ betMania.viewModels = (function () {
     var userProfileViewModel = kendo.observable({
         isLogged: false,
         nickname: "Anonymous",
-        balance: "none"
+        balance: "none",
+        moneyToAdd: 0,
+        toggleAddMoney: function () {
+            $("#addmoney-popup").fadeToggle();
+        },
+        addMoney: function (ev) {
+            var self = this;
+            console.log(self.get("moneyToAdd"));
+            betMania.data.users.addMoney(self.get("moneyToAdd"))
+            .then(function (s) {
+
+                var newbalance = parseFloat(self.get("moneyToAdd")) + parseFloat(self.get("balance"));
+                self.set("balance", newbalance);
+            }, function (err) {
+                console.log(err);
+            });
+        }
     });
 
     var matchViewModel = kendo.observable({

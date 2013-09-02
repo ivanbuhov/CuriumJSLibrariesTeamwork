@@ -111,7 +111,7 @@ betMania.data = (function () {
                 .putJSON(this.baseUrl + "addmoney/" + ammount, {}, headers)
                 .then(function () {
                     var oldBalance = balance();
-                    balance(oldBalance + ammount);
+                    balance(parseFloat(oldBalance) + parseFloat(ammount));
                 });
         },
         getUsers: function () {

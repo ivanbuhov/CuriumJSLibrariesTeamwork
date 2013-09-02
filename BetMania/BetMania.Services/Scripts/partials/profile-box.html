@@ -4,5 +4,11 @@
 <div id="profile-info">
     <span id="nickname" data-bind="text: nickname"></span>
     <span id="balance" >Balance: <span data-bind="text: balance"></span></span>
-    <a id="add-money" data-bind="visible: isLogged">Add more</a>
+    <a id="add-money" data-bind="visible: isLogged, click: toggleAddMoney">Add more</a>
+    
+        
+        <div id="addmoney-popup" style="clear:left;float:right;display:none;">
+            <label for="add-money-input">Add Amount</label><input id="add-money-input" style="width: 50px;" type="text" data-bind="value: moneyToAdd"/>
+            <button class="button" data-bind="click: addMoney">Add</button>
+        </div>
 </div>
