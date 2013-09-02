@@ -234,7 +234,7 @@ betMania.data = (function () {
 
             return betMania.requester.putJSON(this.baseUrl + match.id, match, headers);
         }
-    });
+    });   
 
     return new DataPersister("/api"); 
 }());
