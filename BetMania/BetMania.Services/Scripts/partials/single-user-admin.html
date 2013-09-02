@@ -1,0 +1,44 @@
+﻿<table class="matches" id="all-users">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Nickname</th>
+            <th>Balance</th>
+            <th>Avatar(url!)</th>
+            <th>IsAdmin?</th>
+            <th>Session Key</th>
+            <th>Authorization Code (SHA1)</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>            
+            <td class="match-home">
+                <input type="text" data-bind="value: username" />
+            </td>
+            <td class="match-home">
+                <input type="text" data-bind="value: nickname" />
+            </td>
+            <td>
+                <input class="number-input" type="number" data-bind="value:balance"/>
+            </td>           
+            <td >
+                <input type="url" data-bind="value:avatar" />
+            </td>
+            <td>
+                <input class="number-input" type="checkbox" data-bind="value:isAdmin" />
+            </td>
+            <td class="match-home">
+                <input type="text" data-bind="value: sessionKey" />
+            </td>
+            <td class="match-home">
+                <input type="text" data-bind="value: authCode" />
+            </td>
+            <td>
+                <button data-bind="click:update">Update</button>
+            </td>
+        </tr>
+    </tbody>    
+</table>
+    

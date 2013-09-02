@@ -43,9 +43,24 @@ betMania.views.admin = (function () {
         return getTemplate("matches")
     }
 
+    var getSingleMatchView = function () {
+        return getTemplate("single-match-edit");
+    }
+
+    var getUsersAdminView = function () {
+        return getTemplate("users-admin");
+    }
+
+    var getSingleUserView = function () {
+        return getTemplate("single-user-admin");
+    }
+
     return {
         getMain: getMainAdminView,
         getProfileBox: getProfileBoxView,
-        getMatchesView: getMatchesView
+        getMatchesView: getMatchesView,
+        getSingleMatchView: getSingleMatchView,
+        getUsersAdminView: getUsersAdminView,
+        getSingleUserView: getSingleUserView
     }
 }());
