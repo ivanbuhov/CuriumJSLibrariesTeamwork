@@ -106,11 +106,21 @@ betMania.viewModels = (function () {
                 default: coefficient = 0;
             }
             this.set("coefficient", parseFloat(coefficient));
-            console.log(coefficient);
-            this.set("profit", this.get("coefficient") * this.get("betAmount"));
+            var profit = this.get("coefficient") * this.get("betAmount");
+            profit = Number(profit.toFixed(2));
+            this.set("profit", profit);
         },
         bet: function () {
-            console.log("Bet");
+            betMania.data.matches.bet(this.get("match[0].id"), this.get("betAmount"), this.get("betTypeValue"))
+            .then(function (bet) {
+                var newBalance = betMania.data.balance() - bet.amount;
+                betMania.data.balance(newBalance);
+                betMania.viewModels.userProfileViewModel.set("balance", newBalance);
+            },
+            function (errorData) {
+                var message = JSON.parse(errorData.responseText).message;
+                betMania.ui.showErrorBox(message);
+            });
         }
     });
 

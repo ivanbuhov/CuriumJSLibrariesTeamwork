@@ -4,10 +4,8 @@
 <script type="text/x-kendo-template" id="single-match-template">
     <table class="matches"  id="single-match">
         <thead>
-            <th>
-                #if (status == 1){ # Up-coming # } #
-                #if (status == 2){ # In-progress # } #
-                #if (status == 3){ # Finished # } #
+            <th style="font-size: 14px;">
+                #: startTime #
             </th>
             <th>#: home #</th>
             <th>#: homeScore # : #: awayScore #</th>
@@ -15,7 +13,11 @@
         </thead>
         <tbody>
             <tr>
-                <td>Coefficients:</td>
+                <td>
+                    #if (status == 1){ # Up-coming # } #
+                    #if (status == 2){ # In-progress # } #
+                    #if (status == 3){ # Finished # } #
+                </td>
                 <td>Home: #: homeCoefficient #</td>
                 <td>Draw: #: drawCoefficient #</td>
                 <td>Away: #: awayCoefficient #</td>
