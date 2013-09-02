@@ -77,9 +77,7 @@ betMania.viewModels = (function () {
                 status: self.status,
                 my: self.my
             }).then(function (result) {
-                console.log(result);
                 self.set("matches", result);
-
             },
             function (errorData) {
                 console.log(errorData);
@@ -127,11 +125,17 @@ betMania.viewModels = (function () {
             this.set("profit", profit);
         },
         bet: function () {
+            var self = this;
             betMania.data.matches.bet(this.get("match[0].id"), this.get("betAmount"), this.get("betTypeValue"))
             .then(function (bet) {
+                
                 var newBalance = betMania.data.balance() - bet.amount;
                 betMania.data.balance(newBalance);
                 betMania.viewModels.userProfileViewModel.set("balance", newBalance);
+
+                //var newBets = self.get("match[0].bets");
+                //newBets.push(bet);
+                //self.set("match[0].bets", newBets);
             },
             function (errorData) {
                 var message = JSON.parse(errorData.responseText).message;
