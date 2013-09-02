@@ -37,6 +37,14 @@ betMania = betMania || {};
                 var matchToEdit = self.getMatchById(id);
                 matchToEdit.update = function () {
                     betMania.data.matches.modify(this)
+                        .then(function () {
+                            $("#page").html("<h1>Match is modified!</h1>");
+                            setTimeout(function () {
+                                betMania.router.navigate("/admin/matches");
+                            }, 2000)
+                        }, function (err) {
+                            betMania.ui.showErrorBox(JSON.parse(err.responseText).message);
+                        })
                 }
 
                 betMania.viewModels.singleMatchAdminVM = new kendo.observable(matchToEdit);
@@ -75,16 +83,59 @@ betMania = betMania || {};
                 var id = $(e.target).data("id");
 
                 var userToEdit = _.where(self.users, { id: id }, true);
+                
                 userToEdit.update = function () {
                     betMania.data.users.modify(this)
-                }
-
+                        .then(function () {
+                            $("#page").html("<h1>User is modified!</h1>");
+                            setTimeout(function () {
+                                betMania.router.navigate("/admin/users");
+                            }, 2000)
+                        }, function (err) {
+                            betMania.ui.showErrorBox(JSON.parse(err.responseText).message);
+                        });
+                };
                 betMania.viewModels.singleUserAdminVM = new kendo.observable(userToEdit);
 
                 betMania.router.navigate("/admin/users/" + id);
+            },
+            //create: function () {
+            //    betMania.router.navigate("/admin/createUser");
+            //},
+            deleteUser: function (e) {
+                var self = this;
+
+                var id = $(e.target).data("id");
+
+                betMania.data.users.deleteUser(id)
+                    .then(function (result) {
+                        var index;
+                        var users = self.get("users");
+
+                        for (var i = 0; i < users.length; i++) {
+                            if (users[i].id == id) {
+                                users.splice(i, 1);
+                                return;
+                            }
+                        }
+
+                        self.set("users", users);
+
+                    }, function (err) {
+                        betMania.ui.showErrorBox(JSON.parse(err.responseText).message);
+                    })
+
             }
         })
     }
+
+    //betMania.viewModels.singleUserAdminVM = function () {
+    //    var user = {};
+
+    //    var update = 
+
+    //    return new kendo.observable(user);
+    //}
 }());
                 //var result = result;
                 //var data = new kendo.data.DataSource({

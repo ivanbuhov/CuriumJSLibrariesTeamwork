@@ -146,7 +146,6 @@ betMania.data = (function () {
                  balance(user.balance);
              });
         }
-
     });
 
     var MatchesPersister = Class.create({

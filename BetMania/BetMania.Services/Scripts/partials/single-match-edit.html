@@ -9,6 +9,7 @@
             <th>2</th>
             <th>Away Team</th>
             <th>Result</th>
+            <th>Finished?</th>
             <th></th>
         </tr>
     </thead>  
@@ -38,6 +39,9 @@
             </td>
             <td class="wide-cell">
                 <input class="number-input inline" type="number" data-bind="value:awayScore" />
+            </td>
+            <td>
+                <input class="number-input inline" type="radio" data-bind="value:isFinished" />
             </td>
             <td>
                 <button data-bind="click:update">Update</button>

@@ -19,8 +19,8 @@
                 <td data-bind="text: balance"></td>          
                 <td><img class="avatar" src= " #= avatar # "/></td>     
                 <td data-bind="text: isAdmin"></td>
-                <td data-bind="text: sessionKey"></td>
-                <td data-bind="text: authCode"></td> 
+                <td class="small-font" data-bind="text: sessionKey"></td>
+                <td class="small-font" data-bind="text: authCode"></td> 
                 <td>
                     <button data-id="#: id #" data-bind="click:editUser">Edit</button>
                     <button data-id="#: id #" data-bind="click:deleteUser">Delete</button>
@@ -29,9 +29,9 @@
             </tr>
         </script>
     </tbody>
-    <tfoot>
+    <!--<tfoot>
         <tr>
             <td colspan="8"><button data-bind="click:create">Create User</button></td>
         </tr>
-    </tfoot>
+    </tfoot>-->
 </table>
