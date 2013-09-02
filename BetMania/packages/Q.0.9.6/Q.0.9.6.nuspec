@@ -10,8 +10,6 @@
     <projectUrl>https://github.com/kriskowal/q</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A library for making and composing asynchronous promises in JavaScript.</description>
-    <releaseNotes />
-    <copyright />
     <language>en-US</language>
     <tags>q qjs q.js promise promises promises-a promises-aplus deferred future async flow control fluent browser node javascript</tags>
   </metadata>
