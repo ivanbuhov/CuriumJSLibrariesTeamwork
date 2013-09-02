@@ -1,8 +1,30 @@
-﻿<div data-role="grid"
-     data-sortable="true"
-     data-editable="true"
-     data-bind="source: matchesDataSource"
-     data-columns='[{"field":"home", "title":"Home", "width":"50px"},  {"command": "destroy"}]'>
-</div>
-<!--{field:"home",title:"Home"}-->
-
+﻿<table class="matches" id="all-matches" data-bind="source: matches" data-template="single-row-template">
+    <thead>
+        <tr>
+            <th>Start Time</th>
+            <th>Home Team</th>            
+            <th>1</th>
+            <th>X</th>
+            <th>2</th>
+            <th>Result</th>   
+            <th>Away Team</th> 
+            <th></th>
+        </tr>
+    </thead>    
+    <tbody>
+        <script type="text/x-kendo-template" id="single-row-template">
+            <tr>
+                <td class="match-date" data-bind="text: startTime"></td>                
+                <td class="match-home" data-bind="text: home"></td>
+                <td data-bind="text:homeCoefficient"></td>
+                <td data-bind="text:drawCoefficient"></td>
+                <td data-bind="text:awayCoefficient"></td>
+                <td class="match-result"> 
+                    <span data-bind="text: homeScore" /> : <span data-bind="text: awayScore" />
+                </td>
+                <td class="match-away" data-bind="text: away"></td>
+                <!--<td><button data-bind="click:editMatch('id')">Edit</button></td>-->
+            </tr>
+        </script>
+    </tbody>
+</table>
