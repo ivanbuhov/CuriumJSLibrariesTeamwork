@@ -147,7 +147,6 @@ betMania.data = (function () {
                  balance(user.balance);
              });
         }
-
     });
 
     var MatchesPersister = Class.create({
@@ -227,6 +226,14 @@ betMania.data = (function () {
                     return betModel;
                 });
         },
+
+        modify: function (match) {
+            var headers = {
+                "X-sessionKey": getSessionKey()
+            };
+
+            return betMania.requester.putJSON(this.baseUrl + match.id, match, headers);
+        }
     });
 
     return new DataPersister("/api"); 

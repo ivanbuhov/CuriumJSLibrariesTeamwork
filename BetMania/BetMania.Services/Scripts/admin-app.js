@@ -71,25 +71,32 @@ betMania = betMania || {};
                 var usersVM = betMania.viewModels.usersAdminVM();
                 var usersView = new kendo.View(usersHTML, { model: usersVM });
 
-                usersVM.getUsers();
+                usersVM.getUsers();  
                 layout.showIn("#page", usersView);
             })
-
     })
 
     betMania.router.route("/admin/users/:id", function (id) {
         betMania.views.admin.getSingleUserView()
            .then(function (singleUserHtml) {
-               var singleMatchVM = betMania.viewModels.singleUserAdminVM;
+               var singleUserVM = betMania.viewModels.singleUserAdminVM;
 
-               var singleMatchView = new kendo.View(singleUserHtml, { model: singleMatchVM });
+               if (!singleUserVM) {
+                   betMania.router.navigate("/admin/users");
+                   return;
+               }
+
+               var singleMatchView = new kendo.View(singleUserHtml, { model: singleUserVM });
 
                layout.showIn("#page", singleMatchView);
-
            });
     });
 
-    betMania.router.route("/admin/deleteUser/:id", function (id) {
+    //betMania.router.route("/admin/deleteUser/:id", function (id) {
+    //    //betMania
+    //});
+
+    betMania.router.route("/admin/createUser", function (id) {
 
     });
 
