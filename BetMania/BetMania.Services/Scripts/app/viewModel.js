@@ -44,7 +44,23 @@ betMania.viewModels = (function () {
     var userProfileViewModel = kendo.observable({
         isLogged: false,
         nickname: "Anonymous",
-        balance: "none"
+        balance: "none",
+        moneyToAdd: 0,
+        toggleAddMoney: function () {
+            $("#addmoney-popup").fadeToggle();
+        },
+        addMoney: function (ev) {
+            var self = this;
+            console.log(self.get("moneyToAdd"));
+            betMania.data.users.addMoney(self.get("moneyToAdd"))
+            .then(function (s) {
+
+                var newbalance = parseFloat(self.get("moneyToAdd")) + parseFloat(self.get("balance"));
+                self.set("balance", newbalance);
+            }, function (err) {
+                console.log(err);
+            });
+        }
     });
 
     var matchViewModel = kendo.observable({
@@ -61,9 +77,7 @@ betMania.viewModels = (function () {
                 status: self.status,
                 my: self.my
             }).then(function (result) {
-                console.log(result);
                 self.set("matches", result);
-
             },
             function (errorData) {
                 console.log(errorData);
@@ -91,7 +105,7 @@ betMania.viewModels = (function () {
                 }
             }
         }),
-        changeBetAmount: function(ev) {
+        changeBetAmount: function (ev) {
             var amount = parseFloat(ev.currentTarget.value);
             this.set("betAmount", amount);
             this.updateProfit();
@@ -111,11 +125,17 @@ betMania.viewModels = (function () {
             this.set("profit", profit);
         },
         bet: function () {
+            var self = this;
             betMania.data.matches.bet(this.get("match[0].id"), this.get("betAmount"), this.get("betTypeValue"))
             .then(function (bet) {
+                
                 var newBalance = betMania.data.balance() - bet.amount;
                 betMania.data.balance(newBalance);
                 betMania.viewModels.userProfileViewModel.set("balance", newBalance);
+
+                //var newBets = self.get("match[0].bets");
+                //newBets.push(bet);
+                //self.set("match[0].bets", newBets);
             },
             function (errorData) {
                 var message = JSON.parse(errorData.responseText).message;

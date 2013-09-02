@@ -135,6 +135,9 @@ input {
         float: left;
     }
 
+    #avatar{
+        margin-bottom:20px;
+    }
 #nickname {
     float: left;
     font-size: 25px;

@@ -177,6 +177,7 @@
     <Compile Include="Models\BetDTO.cs" />
     <Compile Include="Models\BetTypeDTO.cs" />
     <Compile Include="Models\CategoryDTO.cs" />
+    <Compile Include="Models\MatchWithBetsDTO.cs" />
     <Compile Include="Models\MatchAdditionDTO.cs" />
     <Compile Include="Models\LoggedUserDTO.cs" />
     <Compile Include="Models\MatchDTO.cs" />

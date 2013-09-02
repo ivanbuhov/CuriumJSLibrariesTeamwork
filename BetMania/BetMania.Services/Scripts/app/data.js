@@ -111,7 +111,7 @@ betMania.data = (function () {
                 .putJSON(this.baseUrl + "addmoney/" + ammount, {}, headers)
                 .then(function () {
                     var oldBalance = balance();
-                    balance(oldBalance + ammount);
+                    balance(parseFloat(oldBalance) + parseFloat(ammount));
                 });
         },
         getUsers: function () {
@@ -182,8 +182,11 @@ betMania.data = (function () {
         },
 
         getMatch: function (id) {
+            var headers = {
+                "X-sessionKey": getSessionKey() || " "
+            }
             var url = this.baseUrl + id;
-            return betMania.requester.getJSON(url);
+            return betMania.requester.getJSON(url, headers);
         },
 
         addNew: function (match) {

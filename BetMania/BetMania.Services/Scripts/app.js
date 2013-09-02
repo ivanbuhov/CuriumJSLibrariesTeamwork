@@ -104,9 +104,18 @@ var betMania = betMania || {};
             betMania.data.matches.getMatch(id)
             .then(function (match) {
                 singleMatchVM.set("match", [match]);
-                return betMania.views.getSingleMatchView();
+                singleMatchVM.set("coefficient", 0);
+                singleMatchVM.set("profit", 0);
+                singleMatchVM.set("betAmount", 0);
+                if (betMania.data.isUserLogged()) {
+                    return betMania.views.getLoggedSingleMatchView();
+                }
+                else {
+                    return betMania.views.getUnloggedSingleMatchView();
+                }
+                
             }, function (errorData) {
-                // TODO: fix me
+                console.log(errorData);
             })
             .then(function (singleMatchHtml) {
                 var view = new kendo.View(singleMatchHtml, { model: singleMatchVM });

@@ -47,8 +47,12 @@ betMania.views = (function () {
         return getTemplate("profile-box");
     }
 
-    function getSingleMatchView() {
-        return getTemplate("singleMatch");
+    function getLoggedSingleMatchView() {
+        return getTemplate("logged-single-match");
+    }
+
+    function getUnloggedSingleMatchView() {
+        return getTemplate("unlogged-single-match");
     }
 
     return {
@@ -56,6 +60,7 @@ betMania.views = (function () {
         getLoginRegisterView: getLoginRegisterView,
         getMatchesTableView: getMatchesTableView,
         getProfileBoxView: getProfileBoxView,
-        getSingleMatchView : getSingleMatchView
+        getLoggedSingleMatchView: getLoggedSingleMatchView,
+        getUnloggedSingleMatchView: getUnloggedSingleMatchView
     };
 }());
