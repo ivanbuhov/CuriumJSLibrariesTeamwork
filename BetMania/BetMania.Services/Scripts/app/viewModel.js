@@ -128,10 +128,8 @@ betMania.viewModels = (function () {
                 var newBalance = betMania.data.balance() - bet.amount;
                 betMania.data.balance(newBalance);
                 betMania.viewModels.userProfileViewModel.set("balance", newBalance);
-
-                //var newBets = self.get("match[0].bets");
-                //newBets.push(bet);
-                //self.set("match[0].bets", newBets);
+                $("#single-match-bet-table tbody").append("<tr><td>" + bet.amount + "</td><td>" + bet.betType + "</td></tr>");
+                console.log(bet);
             },
             function (errorData) {
                 var message = JSON.parse(errorData.responseText).message;
