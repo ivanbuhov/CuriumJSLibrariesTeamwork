@@ -8,7 +8,7 @@
             <th>X</th>
             <th>2</th>
             <th>Away Team</th>
-            <th>Result</th>
+            <th>Away Res</th>
             <th>Finished?</th>
             <th></th>
         </tr>
@@ -21,30 +21,27 @@
             <td class="match-home">
                 <input type="text" data-bind="value: home" />
             </td>
-            <td class="wide-cell">
-                <input class="number-input inline" type="number" data-bind="value:homeScore" />
-            </td>
+            <td class="wide-cell" data-bind="text:homeScore"></td>
             <td >
                 <input class="number-input" type="number" data-bind="value:homeCoefficient" />
             </td>
             <td>
-                <input class="number-input"  type="number" data-bind="value:drawCoefficient" />
+                <input class="number-input" type="number" data-bind="value:drawCoefficient" />
             </td>
             <td>
                 <input class="number-input" type="number" data-bind="value:awayCoefficient" />
-            </td>
-                
+            </td>                
             <td class="match-away">
                 <input type="text" data-bind="value: away" />
             </td>
             <td class="wide-cell">
-                <input class="number-input inline" type="number" data-bind="value:awayScore" />
+                <span data-bind="text:awayScore"></span>
             </td>
             <td>
                 <input class="number-input inline" type="checkbox" data-bind="value:isFinished" />
             </td>
             <td>
-                <button data-bind="click:update">Update</button>
+                <button data-bind="click:create">Create</button>
             </td>
         </tr>           
     </tbody>

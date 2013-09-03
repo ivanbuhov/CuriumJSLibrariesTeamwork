@@ -3,20 +3,18 @@
 betMania = betMania || {};
 
 (function () {
-    betMania.viewModels.adminViewModel = function () {
-        return new kendo.observable({
-            testAdminViewModel:1,
-            getAllUsers: function (msg) {
-                alert(msg + " getting users");
-            }
-        });
-    }
+    //betMania.viewModels.adminViewModel = function () {
+    //    return new kendo.observable({
+    //        testAdminViewModel:1,
+    //        getAllUsers: function (msg) {
+    //            alert(msg + " getting users");
+    //        }
+    //    });
+    //}
 
     betMania.viewModels.adminMatchesViewModel = function () {
         var matches = [];
-
-        //var updateMatches = 
-
+        
         return new kendo.observable({
             matches: matches,           
             updateMatches: function () {
@@ -25,8 +23,7 @@ betMania = betMania || {};
                      .then(function (result) {
                          self.set("matches", result);
                      }, function (err) {
-                         console.log(err);
-                         return err;
+                         betMania.ui.showErrorBox(JSON.parse(err.responseText).message);
                      });
             },
             editMatch: function (e) {
@@ -61,6 +58,10 @@ betMania = betMania || {};
                 }
 
                 return {};
+            },
+            create: function () {
+                debugger;
+                betMania.router.navigate("/admin/createMatch");
             }
         });
     }
@@ -129,87 +130,110 @@ betMania = betMania || {};
         })
     }
 
-    //betMania.viewModels.singleUserAdminVM = function () {
-    //    var user = {};
+    betMania.viewModels.createMatchVM = function () {
+        return new kendo.observable({
+            startTime: new Date(),
+            home: "",
+            away: "",
+            homeCoefficient: "1",
+            drawCoefficient: "1",
+            awayCoefficient: "1",
+            homeScore: 0,
+            awayScore: 0,
+            isFinished: false,
+            categoryId: 1,
+            create: function () {
+                betMania.data.matches.addNew(this)
+                  .then(function (result) {
+                      var created = $("<span class='green'>New Match created</span>");
 
-    //    var update = 
+                      $("#page").append(created);
 
-    //    return new kendo.observable(user);
-    //}
+                      setTimeout(function () {
+                          created.slideToggle().remove();
+                      }, 2000)
+                  }, function (err) {
+                      betMania.ui.showErrorBox(JSON.parse(err.responseText).message);
+                  })
+            }
+        });
+    }
+
 }());
-                //var result = result;
-                //var data = new kendo.data.DataSource({
-                //    //data: result,
-                //    schema: {
-                //        model: { id: "id",
-                //            fields: {
-                //                home: { editable: true, nullable: false },
-                //                away: { editable: { required: true }, nullable: false },
-                //                homeCoefficient: { type: "number", validation: { required: true, min: 1 } },
-                //                awayCoefficient: { type: "boolean" },
-                //                drawCoefficient: { type: "number", validation: { min: 0, required: true } }
-                //            }
-                //        }
-                //    },
-                //    transport: {
-                //        read: function (options) {
-                //            options.success(result);
-                //        },
-                //        destroy: function (options) {
-                //            console.log(options);
-                //        },
-                //        update: function (options) {
-                //            console.log(options);
-                //        },
-                //        edit: function (options) {
-                //            console.log(options);
-                //        },
-                //        create: function (options) {
-                //            console.log(options);
-                //        }
-                //    },
 
-                //});
+//var result = result;
+//var data = new kendo.data.DataSource({
+//    //data: result,
+//    schema: {
+//        model: { id: "id",
+//            fields: {
+//                home: { editable: true, nullable: false },
+//                away: { editable: { required: true }, nullable: false },
+//                homeCoefficient: { type: "number", validation: { required: true, min: 1 } },
+//                awayCoefficient: { type: "boolean" },
+//                drawCoefficient: { type: "number", validation: { min: 0, required: true } }
+//            }
+//        }
+//    },
+//    transport: {
+//        read: function (options) {
+//            options.success(result);
+//        },
+//        destroy: function (options) {
+//            console.log(options);
+//        },
+//        update: function (options) {
+//            console.log(options);
+//        },
+//        edit: function (options) {
+//            console.log(options);
+//        },
+//        create: function (options) {
+//            console.log(options);
+//        }
+//    },
 
-                //var updateData = function (e) {
-                //    var target = e.target;
-                //}
+//});
 
-                //return new kendo.observable({
-                //    matchesDataSource: data,
-                //    updateData: function (e) {
-                //        var target = e.target;
-                //    },
-                //    getKendoGrid: function (selector) {
-                //        $(selector).kendoGrid({
-                //            dataSource: data,
-                //            columns: [{ "field": "home", "title": "Home", "width": "200px" },
-                //                { "field": "away", title: "Away", "width": "200px" },
-                //                { "field": "homeCoefficient", title: "1", "width": "60px" },
-                //                { "field": "drawCoefficient", title: "X", "width": "60px" },
-                //                { "field": "awayCoefficient", title: "2", "width": "60px" },
-                //                { "field": "homeScore", "title": "Res", "width": "60px" },
-                //                { "field": "awayScore", "title": "ult", "width": "60px" },
-                //                {
-                //                    "command": [{
-                //                        text: "Delete", click: function (data) {
-                //                            console.log(data);
-                //                        }
-                //                    }, "update"]
-                //                }
-                //            ],
-                //            editable: true,
-                //            //toolbar: [{ text: "Create" , click: this.dataSource.transport.create},"save","cacel"]
-                //        })
-                //    }
-        //    });
+//var updateData = function (e) {
+//    var target = e.target;
+//}
 
-        //}, function (err) {
-        //    console.log(err);
-        //})
-    //}
+//return new kendo.observable({
+//    matchesDataSource: data,
+//    updateData: function (e) {
+//        var target = e.target;
+//    },
+//    getKendoGrid: function (selector) {
+//        $(selector).kendoGrid({
+//            dataSource: data,
+//            columns: [{ "field": "home", "title": "Home", "width": "200px" },
+//                { "field": "away", title: "Away", "width": "200px" },
+//                { "field": "homeCoefficient", title: "1", "width": "60px" },
+//                { "field": "drawCoefficient", title: "X", "width": "60px" },
+//                { "field": "awayCoefficient", title: "2", "width": "60px" },
+//                { "field": "homeScore", "title": "Res", "width": "60px" },
+//                { "field": "awayScore", "title": "ult", "width": "60px" },
+//                {
+//                    "command": [{
+//                        text: "Delete", click: function (data) {
+//                            console.log(data);
+//                        }
+//                    }, "update"]
+//                }
+//            ],
+//            editable: true,
+//            //toolbar: [{ text: "Create" , click: this.dataSource.transport.create},"save","cacel"]
+//        })
+//    }
+    //    });
 
-    //return {
-    //    adminViewModel: adminViewModel,
-    //    adminMatchesViewModel: adminMatchesViewModel
-    //}
+    //}, function (err) {
+    //    console.log(err);
+    //})
+//}
+
+//return {
+//    adminViewModel: adminViewModel,
+//    adminMatchesViewModel: adminMatchesViewModel
+//}
