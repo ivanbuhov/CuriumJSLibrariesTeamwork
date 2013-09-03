@@ -51,12 +51,9 @@ betMania.viewModels = (function () {
         },
         addMoney: function (ev) {
             var self = this;
-            console.log(self.get("moneyToAdd"));
             betMania.data.users.addMoney(self.get("moneyToAdd"))
-            .then(function (s) {
-
-                var newbalance = parseFloat(self.get("moneyToAdd")) + parseFloat(self.get("balance"));
-                self.set("balance", newbalance);
+            .then(function (newBalance) {
+                self.set("balance", newBalance);
             }, function (err) {
                 console.log(err);
             });
@@ -87,7 +84,6 @@ betMania.viewModels = (function () {
             var id = $(ev.delegateTarget).data("id");
             betMania.router.navigate("/match/" + id);
         }
-        
     });
 
     var singleMatchViewModel = kendo.observable({

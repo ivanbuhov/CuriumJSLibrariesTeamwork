@@ -19,6 +19,8 @@ var betMania = betMania || {};
         // If the user is logged in
         if (betMania.data.isUserLogged()) {
             profileBoxVM.set("nickname", betMania.data.getNickname());
+            profileBoxVM.set("moneyToAdd", 0);
+            profileBoxVM.addMoney(0);
             profileBoxVM.set("balance", betMania.data.balance());
             profileBoxVM.set("isLogged", true);
         }
